@@ -59,18 +59,16 @@ export default function Home() {
       />
 
       <p>
-        <a href="https://docs.ssccs.org/ssccs/">SSCCS</a> (Schema–Segment Composition Computing System) is an observation‑driven computing model grounded in the epistemology of possible worlds, redefining computation as the collapse of structured potential. Immutable Segments arranged by
-        Schemes, projected through Fields under their dynamic constraints and
-        Observation. State or data is the result of the projection, and time is
-        one of coordinates. Therefore parallelism and verifiability emerge naturally from structure, have near-linear scalability and energy consumption.
+        <a href="https://docs.ssccs.org/ssccs/">SSCCS</a> (Schema–Segment Composition Computing System) is an observation‑driven computing model grounded in the epistemology of possible worlds, redefining computation as the collapse of structured potential. From the Turing machine to the von Neumann architecture, all digital computing has been an instantiation of propositional logic; SSCCS radically reduces that linguistic frame to its origin, operating directly on the primordial resonance that exists before explanation and symbols emerge. Immutable Segments arranged by Schemes, projected through Fields under their dynamic constraints and Observation. State or data is the result of the projection, and time is one of coordinates. Therefore parallelism and verifiability emerge naturally from structure, have near-linear scalability and energy consumption.
       </p>
+      
 
       <p>
         This project is from the <a href="https://docs.ssccs.org/legal/">SSCCS Foundation</a> (in formation): an open‑source computing systems initiative building a complete stack of silicon compiler infrastructure from technical specifications, through a software compiler toolchain to an open hardware architecture. We are under an open‑core model by our{" "}
         <a href="https://docs.ssccs.org/direction">
           operational direction
         </a>{" "}
-        and <a href="https://docs.ssccs.org/philosophy/">philosophy</a>. The model validation is actively materializing by our open project ecosystem powered by <a href="http://docs.ssccs.org/projects/nexus">neXus</a>.
+        and <a href="https://docs.ssccs.org/philosophy/">philosophy</a>. Our philosophy is not just a tool for problem-solving but a foundational definition that constitutes the practitioner's very mode of being and identity. The model validation is actively materializing by our open project ecosystem powered by <a href="http://docs.ssccs.org/projects/nexus">neXus</a>.
       </p>
 
       <BrowserOnly fallback={<div style={{ height: "540px" }}></div>}>
