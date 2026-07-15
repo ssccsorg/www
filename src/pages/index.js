@@ -23,7 +23,7 @@ export default function Home() {
         <span style={{ fontWeight: "bold" }}>·</span>
 
         <span className={styles.group}>
-          <a href={appendDateQuery("https://ssccs.org/zenodo")}>Whitepaper</a>
+          <a href={appendDateQuery("https://docs.ssccs.org/whitepaper/whitepaper.html")}>Whitepaper</a>
         </span>
 
         <span style={{ fontWeight: "bold" }}>·</span>
