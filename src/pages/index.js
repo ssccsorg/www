@@ -68,7 +68,7 @@ export default function Home() {
         <a href="https://docs.ssccs.org/direction">
           operational direction
         </a>{" "}
-        and <a href="https://docs.ssccs.org/philosophy/">philosophy</a>. Our philosophy is not just a tool for problem-solving but a foundational definition that constitutes the practitioner's very mode of being and identity. The model validation is actively materializing by our open project ecosystem powered by <a href="http://docs.ssccs.org/projects/nexus">neXus</a> and <a href="http://docs.ssccs.org/projects/syntagma">synTagma</a>.
+        and <a href="https://docs.ssccs.org/philosophy/">philosophy</a>. Our philosophy provides the foundational definition that constitutes the practitioner's mode of being and identity. The model validation is actively materializing through domain instantiations including <a href="http://docs.ssccs.org/projects/nexus">neXus</a> and <a href="http://docs.ssccs.org/projects/syntagma">synTagma</a>.
       </p>
 
       <BrowserOnly fallback={<div style={{ height: "540px" }}></div>}>
@@ -186,12 +186,13 @@ export default function Home() {
       <h2>Now</h2>
       <ul>
         <li>
-          Overall PoC implementation is under{" "}
+          The core compiler and runtime are under{" "}
           <a href="https://github.com/ssccsorg/ssccs/graphs/commit-activity">
             active development.
           </a>{" "}
           Current focus is on Field composition algebra: making constraint sets
-          composable while preserving observation determinism and{" "}
+          composable while preserving observation determinism, with parallel
+          work on{" "}
           <a href="https://docs.ssccs.org/research/rust_baremetal.html">
             compiler pipeline hardening
           </a>{" "}
@@ -203,23 +204,23 @@ export default function Home() {
         </li>
 
         <li>
-          <a href="https://docs.ssccs.org/projects/nexus">Building Nexus</a>:
-          the boundaryless autonomous research infrastructure for SSCCS which is
-          a contract‑governed, agentic research infrastructure that ingests and
-          connects heterogeneous knowledge into a unified, queryable structure.
+          <a href="https://docs.ssccs.org/projects/nexus">Nexus</a>:
+          a domain instantiation of the SSCCS model. It provides
+          contract‑governed, agentic coordination that ingests and connects
+          heterogeneous knowledge into a unified, queryable structure.
         </li>
         <li>
           <a href="https://docs.ssccs.org/partnerships/aws.html">
-            Forging strategic partnerships
+            Strategic partnerships
           </a>
-          : with global infrastructure leaders to enhance the scalability and
-          computational efficiency of autonomous research environments.
+          : with infrastructure leaders to extend the reach of agentic
+          research environments.
         </li>
         <li>
           <a href="https://docs.ssccs.org/partnerships/openhw_integration.html">
             Hardware validation
           </a>
-          : hased prototyping from software emulation to FPGA deployment, with a
+          : phased prototyping from software emulation to FPGA deployment, with a
           parallel track for radiation‑tolerant platforms.
         </li>
       </ul>
@@ -227,11 +228,11 @@ export default function Home() {
       <h2>Collaboration</h2>
       <p>
         We welcome partnerships from academia, industry, and public institutions
-        worldwide—any nation with aligned public‑interest programs. We are
-        currently seeking strategic funds to expand the core compiler team,
-        complete the reference implementation, and establish legal governance.
+        worldwide — any nation with aligned public-interest programs. Domain
+        instantiations of the SSCCS model are already in motion; we are selective
+        about collaborators who bring engineering depth and long-term commitment.
         Opportunities include research collaboration, software toolchain
-        development, and strategic guidance.
+        development, and joint hardware validation.
       </p>
 
       <hr
