@@ -64,7 +64,7 @@ export default function Home() {
       
 
       <p>
-        This project is from the <a href="https://docs.ssccs.org/legal/">SSCCS Foundation</a> (in formation): an open‑source computing systems initiative building a complete stack of silicon compiler infrastructure from technical specifications, through a software compiler toolchain to an open hardware architecture. We are under an open‑core model by our{" "}
+        This project is from the <a href="https://docs.ssccs.org/axioms/">SSCCS Foundation</a>: an open‑source computing systems initiative building a complete stack of silicon compiler infrastructure from technical specifications, through a software compiler toolchain to an open hardware architecture. We are under an open‑core model by our{" "}
         <a href="https://docs.ssccs.org/direction">
           operational direction
         </a>{" "}
