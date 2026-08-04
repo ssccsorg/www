@@ -235,6 +235,20 @@ export default function Home() {
         development, and joint hardware validation.
       </p>
 
+      <p></p>
+      <h2>Sponsorship</h2>
+      <p>
+        SSCCS is an independent, non-profit initiative committed to public-good
+        infrastructure. The official sponsorship charter on GitHub Sponsors
+        describes the funded work: open-source releases, free documentation,
+        and research into energy-efficient, verifiable computing.
+      </p>
+      <p>
+        <a href="https://github.com/sponsors/ssccsorg">
+          Sponsor SSCCS on GitHub Sponsors
+        </a>
+      </p>
+
       <hr
         style={{ margin: "30px 0", border: "0", borderTop: "1px solid #000" }}
       />
