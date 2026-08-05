@@ -37,14 +37,20 @@ export default function Home() {
         <span className={styles.group}>
           <a href={"https://github.com/ssccsorg"}>Code</a>
         </span>
+
+        <span style={{ fontWeight: "bold" }}>·</span>
+
+        <span className={styles.group}>
+          <a href={"https://github.com/sponsors/ssccsorg"}>Support</a>          
+        </span>        
         
         <span style={{ fontWeight: "bold" }}>·</span>
 
         <span className={styles.group}>
-          <a href={"mailto:contact@ssccs.org"}>Contact</a> /{" "}
+          <a href={"mailto:contact@ssccs.org"}>Contact</a> (
           <a href={"https://keys.openpgp.org/search?q=0xF812D4374FEE96A1"}>
             PGP Key
-          </a>
+          </a>)
         </span>
       </nav>
 
