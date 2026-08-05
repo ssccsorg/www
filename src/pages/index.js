@@ -361,7 +361,7 @@ const PARTNERS = [
   {
     name: "CERN",
     href: appendDateQuery(
-      "https://cernandsocietyfoundation.cern/projects/zenodo",
+      "https://openscience.cern/zenodo",
     ),
     src: appendDateQuery("./images/cern.svg"),
     h: "60px",
