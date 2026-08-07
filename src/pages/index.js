@@ -55,7 +55,27 @@ export default function Home() {
         style={{ margin: "30px 0", border: "0", borderTop: "1px solid #000" }}
       />
 
-      <h1 align="center">Schema–Segment Composition Computing System</h1>
+      <h1
+        align="center"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "14px",
+        }}
+      >
+        <img
+          src="https://avatars.githubusercontent.com/u/257801312?s=120&u=23732f7ce4bf24ce32f356fa47ee16b5b4548a3b&v=4"
+          alt="SSCCS"
+          style={{
+            width: "44px",
+            height: "44px",
+            borderRadius: "50%",
+            flexShrink: 0,
+          }}
+        />
+        Schema–Segment Composition Computing System
+      </h1>
 
       <hr
         style={{ margin: "30px 0", border: "0", borderTop: "1px solid #000" }}
