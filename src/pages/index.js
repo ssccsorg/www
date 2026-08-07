@@ -62,7 +62,7 @@ export default function Home() {
       />
 
       <p>
-        <a href="https://docs.ssccs.org/axioms/ssccs.html">SSCCS</a> (Schema–Segment Composition Computing System) is an open‑source computing stack that replaces the instruction‑centric model with an observation‑driven architecture: computation is the collapse of structured potential across a coordinate space of immutable Segments and dynamic Fields. Parallelism and verifiability emerge from the structure itself, with near‑linear scalability and energy efficiency as consequences; state is the result of projection, and time is one coordinate among many.
+        <a href="https://docs.ssccs.org/axioms/ssccs.html">SSCCS</a> (Schema–Segment Composition Computing System) is an open‑source computing systems initiative that replaces the instruction‑centric model with an observation‑driven architecture: computation is the collapse of structured potential across a coordinate space of immutable Segments and dynamic Fields. Parallelism and verifiability emerge from the structure itself, with near‑linear scalability and energy efficiency as consequences; state is the result of projection, and time is one coordinate among many.
       </p>
 
 
@@ -129,6 +129,12 @@ export default function Home() {
           sub‑graphs cannot interfere, and every observation is a deterministic,
           traceable collapse from blueprint to result.
         </li>
+        <li>
+          Digital sovereignty is a design property, not an afterthought. Policy
+          sandboxes are enforced at the binary level, so organizations and
+          individuals keep control of their computational environments, free
+          from proprietary lock-in.
+        </li>
       </ul>
       <p></p>
       <h2>Where</h2>
@@ -145,6 +151,12 @@ export default function Home() {
           upset, the system re‑observes the same immutable Scheme,
           deterministically arriving at the same configuration without expensive
           hardware redundancy.
+        </li>
+        <li>
+          Embedded and edge systems: the coordinate space fits in a
+          no-allocator array small enough for OS-less microcontrollers and
+          radiation-tolerant hardware, replacing hash units with
+          combinational decoders.
         </li>
         <li>
           AI inference (LLMs, diffusion models, etc.): Model weights are largely
@@ -165,6 +177,11 @@ export default function Home() {
           compiler maps these relations directly into the memory subsystem so
           that each timestep becomes a parallel observation of the grid, not a
           sequence of explicit data movements.
+        </li>
+        <li>
+          Scientific data infrastructure: with CERN, coordinate indexing is
+          applied to ROOT's TTree, collapsing read-request bottlenecks that
+          took hours into seconds.
         </li>
       </ul>
       <p></p>
@@ -200,6 +217,13 @@ export default function Home() {
           </a>
           : with infrastructure leaders to extend the reach of agentic
           research environments.
+        </li>
+        <li>
+          <a href="https://docs.ssccs.org/partnerships/cern/">
+            Scientific partnership with CERN
+          </a>
+          : applying coordinate indexing to high-energy physics data
+          infrastructure.
         </li>
         <li>
           <a href="https://docs.ssccs.org/partnerships/openhw_integration.html">
