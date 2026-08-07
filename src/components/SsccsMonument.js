@@ -11,7 +11,7 @@ import { MONUMENT_SCENE } from "./monumentScene";
 const EYE = MONUMENT_SCENE.layout.scene.camera.eye;
 
 export function SsccsMonument() {
-  const plotRef = useRef(null);
+  const orbitRef = useRef(null);
   const [interacted, setInteracted] = useState(false);
   const [libs, setLibs] = useState(null);
   const [width, setWidth] = useState(
@@ -38,20 +38,40 @@ export function SsccsMonument() {
     };
   }, []);
 
-  // Gentle orbit until the visitor drags the scene.
+  // Stop the orbit once the visitor takes control with a pointer drag.
   useEffect(() => {
-    if (interacted || !libs) {
-      return undefined;
+    if (interacted && orbitRef.current) {
+      window.clearInterval(orbitRef.current);
+      orbitRef.current = null;
+    }
+  }, [interacted]);
+
+  // Clear the orbit timer on unmount.
+  useEffect(() => {
+    return () => {
+      if (orbitRef.current) {
+        window.clearInterval(orbitRef.current);
+      }
+    };
+  }, []);
+
+  // Gentle orbit around the scene. Started from onInitialized, because
+  // relayout needs the plotly graph to be fully laid out first.
+  const startOrbit = (graphDiv) => {
+    if (interacted || !libs || !graphDiv) {
+      return;
+    }
+    if (orbitRef.current) {
+      window.clearInterval(orbitRef.current);
     }
     const radius = Math.hypot(EYE.x, EYE.y, EYE.z);
     let azimuth = Math.atan2(EYE.y, EYE.x);
-    const id = window.setInterval(() => {
+    orbitRef.current = window.setInterval(() => {
       azimuth += 0.008;
-      const node = plotRef.current;
-      if (!node) {
+      if (!graphDiv._fullLayout) {
         return;
       }
-      libs.Plotly.relayout(node, {
+      libs.Plotly.relayout(graphDiv, {
         "scene.camera.eye": {
           x: radius * Math.cos(azimuth),
           y: radius * Math.sin(azimuth),
@@ -59,8 +79,7 @@ export function SsccsMonument() {
         },
       });
     }, 90);
-    return () => window.clearInterval(id);
-  }, [interacted, libs]);
+  };
 
   const placeholderStyle = {
     width: "100%",
@@ -85,7 +104,6 @@ export function SsccsMonument() {
       style={placeholderStyle}
     >
       <Plot
-        ref={plotRef}
         data={MONUMENT_SCENE.data}
         layout={{
           ...MONUMENT_SCENE.layout,
@@ -99,6 +117,7 @@ export function SsccsMonument() {
             },
           },
         }}
+        onInitialized={(figure, graphDiv) => startOrbit(graphDiv)}
         style={{ width: "100%", height: "100%" }}
         useResizeHandler={true}
         config={{ displayModeBar: false }}
