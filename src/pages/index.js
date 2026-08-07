@@ -234,6 +234,47 @@ export default function Home() {
         </li>
       </ul>
       <p></p>
+      <h2>Projects</h2>
+      <p>
+        The stack materializes as independent domain instantiations on the same
+        substrate. Each one solves its own problem and strengthens the
+        primitives for all.
+      </p>
+      <ul>
+        <li>
+          <a href="https://github.com/ssccsorg/ssccs">SSCCS core</a>: the
+          reference compiler and runtime for the model itself.
+        </li>
+        <li>
+          <a href="https://docs.ssccs.org/projects/nexus">neXus</a>: swarm
+          computing runtime with n-dimensional state space storage and
+          contract-governed agentic coordination over an immutable Fact space.
+        </li>
+        <li>
+          <a href="https://docs.ssccs.org/projects/syntagma">synTagma</a>:
+          spatial coordinate space computing; identity without hashing, the
+          coordinate is the address.
+        </li>
+        <li>
+          <a href="https://docs.ssccs.org/projects/chton">Chton</a>:
+          materialization IO fabric for coordinate spaces over physical media;
+          the storage format is the memory layout.
+        </li>
+        <li>
+          <a href="https://docs.ssccs.org/projects/ev">ExaVerif</a>:
+          exhaustive verification for RISC-V custom instructions, replacing
+          random testing.
+        </li>
+        <li>
+          <a href="https://docs.ssccs.org/projects/actus">Actus</a>: agent
+          orchestration runtime across a shared knowledge space.
+        </li>
+        <li>
+          <a href="https://docs.ssccs.org/projects/sdbs">SDBS</a>:
+          single-path artifact pipeline for reproducible, auditable builds.
+        </li>
+      </ul>
+      <p></p>
       <h2>Collaboration</h2>
       <p>
         We welcome partnerships from academia, industry, and public institutions
