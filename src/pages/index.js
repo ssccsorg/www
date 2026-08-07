@@ -8,7 +8,7 @@ export default function Home() {
         maxWidth: "100%",
         width: "clamp(800px, 90%, min(60%, 1000px))",
         margin: "0 auto",
-        padding: "40px 20px",
+        padding: "30px 20px",
         color: "#000",
         lineHeight: "1.6",
       }}
@@ -50,12 +50,10 @@ export default function Home() {
           </a>)
         </span>
       </nav>
-
       
       <p
-        style={{ margin: "35px 0"}}
+        style={{ margin: "46px 0"}}
       />
-
 
       <h1 align="center" className={styles.titleRow}>
         <img
@@ -73,7 +71,6 @@ export default function Home() {
       <p>
         <a href="https://docs.ssccs.org/axioms/ssccs.html">SSCCS</a> (Schema–Segment Composition Computing System) is an open‑source computing systems initiative that replaces the instruction‑centric model with an observation‑driven architecture: computation is the collapse of structured potential across a coordinate space of immutable Segments and dynamic Fields. Parallelism and verifiability emerge from the structure itself, with near‑linear scalability and energy efficiency as consequences; state is the result of projection, and time is one coordinate among many.
       </p>
-
 
       <p>
         SSCCS is built by the{" "}
