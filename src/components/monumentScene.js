@@ -325,7 +325,7 @@ function build() {
       x: projPoints.map((p) => p.x),
       y: projPoints.map((p) => p.y),
       z: projPoints.map((p) => p.z),
-      marker: { color: "#000000", size: 9, symbol: "square" },
+      marker: { color: "#000000", size: 4.5, symbol: "square" },
       name: "Projection P = Ω(Σ, F) · ephemeral",
     },
     // Data D = I(P), shadows cast by collapsed possibility on the ground.
