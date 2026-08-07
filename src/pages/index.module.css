@@ -14,6 +14,13 @@
     flex-shrink: 0;
 }
 
+/* On narrower layouts below 1400px, shrink the title a bit */
+@media (max-width: 1400px) {
+    .titleRow {
+        font-size: 1.65rem;
+    }
+}
+
 /* On narrow screens, stack the logo above the title */
 @media (max-width: 768px) {
     .titleRow {
