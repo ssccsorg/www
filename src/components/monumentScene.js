@@ -16,6 +16,10 @@ const OBS_X = 0.8; // observation node, above the deeper potential well
 const OBS_Y = -0.6;
 const OBS_Z = 5.4; // observation node height
 const ADMISSIBLE_MAX = 1.3; // constraint threshold C(s)
+// Scatter3d markers always draw above the surface, so the admissible points
+// are sunk slightly below the potential to make their centers meet the
+// surface visually.
+const ADMISSIBLE_SINK = 0.12;
 const SURFACE_N = 60; // potential surface resolution
 const FIELD_N = 30; // admissible sampling resolution
 const GRID_N = 20; // base plane resolution
@@ -65,6 +69,8 @@ function surfaceGrid(n) {
 }
 
 // Points of the coordinate space that satisfy the Field constraint C(s).
+// The z coordinate is sunk below the potential surface so the marker centers
+// appear to touch the surface instead of floating above it.
 function admissiblePoints(n) {
   const out = [];
   const xs = linspace(-3, 3, n);
@@ -72,7 +78,7 @@ function admissiblePoints(n) {
     for (const xi of xs) {
       const z = potential(xi, yi);
       if (z <= ADMISSIBLE_MAX) {
-        out.push({ x: xi, y: yi, z });
+        out.push({ x: xi, y: yi, z: z - ADMISSIBLE_SINK });
       }
     }
   }
@@ -302,7 +308,7 @@ function build() {
       x: [0],
       y: [0],
       z: [6.7],
-      text: ["Computation is the collapse of structured potential"],
+      text: [],
       textfont: { color: "#111111", size: 15 },
       textposition: "middle center",
       showlegend: false,
@@ -316,22 +322,20 @@ function build() {
     paper_bgcolor: "rgba(0,0,0,0)",
     plot_bgcolor: "rgba(0,0,0,0)",
     legend: {
-      font: { size: 11, color: "#222222" },
-      x: 0.98,
-      y: 0.98,
+      font: { size: 9, color: "#222222" },
       xanchor: "right",
       yanchor: "top",
-      bgcolor: "rgba(255,255,255,0.88)",
-      bordercolor: "#cccccc",
-      borderwidth: 1,
+      bgcolor: "rgba(255,255,255,0.3)",
+      bordercolor: "#dddddd",
+      borderwidth: 0.5,
       itemsizing: "constant",
     },
     scene: {
       aspectmode: "manual",
-      aspectratio: { x: 1, y: 1, z: 0.95 },
+      aspectratio: { x: 1.2, y: 1.2, z: 1.2 },
       camera: {
-        eye: { x: 1.1, y: -0.95, z: 0.8 },
-        center: { x: 0, y: 0, z: 0.5 },
+        eye: { x: 1.1, y: 0.3, z: 0.95 },
+        center: { x: 0, y: 0, z: -0.3 },
       },
       xaxis: {
         title: { text: "segment coordinate space", font: { size: 11, color: "#666666" } },
