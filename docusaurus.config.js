@@ -108,5 +108,29 @@ export default {
         },
       };
     },
+    function resolveNodePolyfills() {
+      return {
+        name: 'resolve-node-polyfills',
+        configureWebpack() {
+          return {
+            resolve: {
+              fallback: {
+                assert: require.resolve('assert'),
+                buffer: require.resolve('buffer'),
+                http: require.resolve('stream-http'),
+                https: require.resolve('https-browserify'),
+                os: require.resolve('os-browserify'),
+                path: require.resolve('path-browserify'),
+                stream: require.resolve('stream-browserify'),
+                url: require.resolve('url'),
+                util: require.resolve('util'),
+                zlib: require.resolve('browserify-zlib'),
+                fs: false,
+              },
+            },
+          };
+        },
+      };
+    },
   ],
 };

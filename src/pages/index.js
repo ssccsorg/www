@@ -1,8 +1,5 @@
-import BrowserOnly from "@docusaurus/BrowserOnly";
-import useBaseUrl from "@docusaurus/useBaseUrl";
-import { isMobileSafari } from "../utils/detector";
-import { ResponsivePlot } from "../components/ResponsivePlot";
 import styles from "./index.module.css";
+import { SsccsMonument } from "../components/SsccsMonument";
 
 export default function Home() {
   return (
@@ -65,53 +62,35 @@ export default function Home() {
       />
 
       <p>
-        <a href="https://docs.ssccs.org/axioms/ssccs.html">SSCCS</a> (Schema–Segment Composition Computing System) is an observation‑driven computing model grounded in the epistemology of possible worlds, redefining computation as the collapse of structured potential. From the Turing machine to the von Neumann architecture, all digital computing has been an instantiation of propositional logic; SSCCS radically reduces that linguistic frame to its origin, operating directly on the primordial resonance that exists before explanation and symbols emerge. Immutable Segments arranged by Schemes, projected through Fields under their dynamic constraints and Observation. State or data is the result of the projection, and time is one of coordinates. Therefore parallelism and verifiability emerge naturally from structure, have near-linear scalability and energy consumption.
+        <a href="https://docs.ssccs.org/axioms/ssccs.html">SSCCS</a> (Schema–Segment Composition Computing System) is an open‑source computing stack that replaces the instruction‑centric model with an observation‑driven architecture: computation is the collapse of structured potential across a coordinate space of immutable Segments and dynamic Fields. Parallelism and verifiability emerge from the structure itself, with near‑linear scalability and energy efficiency as consequences; state is the result of projection, and time is one coordinate among many.
       </p>
-      
+
 
       <p>
-        This project is from the <a href="https://docs.ssccs.org/axioms/">SSCCS Foundation</a>: an open‑source computing systems initiative building a complete stack of silicon compiler infrastructure from technical specifications, through a software compiler toolchain to an open hardware architecture. We are under an open‑core model by our{" "}
+        SSCCS is built by the{" "}
+        <a href="https://docs.ssccs.org/axioms/">SSCCS Foundation</a>{" "}
+        under an open‑core model, guided by its{" "}
         <a href="https://docs.ssccs.org/direction">
           operational direction
         </a>{" "}
-        and <a href="https://docs.ssccs.org/philosophy/">philosophy</a>. Our philosophy provides the foundational definition that constitutes the practitioner's mode of being and identity. The model validation is actively materializing through domain instantiations including <a href="http://docs.ssccs.org/projects/nexus">neXus</a> and <a href="http://docs.ssccs.org/projects/syntagma">synTagma</a>.
+        and <a href="https://docs.ssccs.org/philosophy/">philosophy</a>. The stack spans the full pipeline, from formal specifications, through a software compiler toolchain, to an open hardware architecture. The model is actively materalizaing on the current paradigm and silicon through <a href="https://docs.ssccs.org/projects/#recursive-synergy-of-the-shared-substrate">domain</a> instantiations including <a href="http://docs.ssccs.org/projects/nexus">neXus</a> and <a href="http://docs.ssccs.org/projects/syntagma">synTagma</a>.
       </p>
 
-      <BrowserOnly fallback={<div style={{ height: "540px" }}></div>}>
-        {() => {
-          const svgUrl = useBaseUrl("/images/ontology3d.svg");
-          if (isMobileSafari()) {
-            return (
-              <div
-                style={{
-                  width: "100%",
-                  height: "clamp(400px, 50vh, 600px)",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <img
-                  src={svgUrl}
-                  alt="SSCCS Ontology Structure"
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "contain",
-                  }}
-                />
-                <p style={{ fontSize: "12px", color: "#343434" }}>
-                  *Loops disappear into layout. Data, or state, is the shadow
-                  cast by collapsed possibility.
-                </p>
-              </div>
-            );
-          } else {
-            return <ResponsivePlot />;
-          }
+      <div
+        style={{
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
         }}
-      </BrowserOnly>
+      >
+        <SsccsMonument />
+        <p style={{ fontSize: "12px", color: "#343434" }}>
+          *Loops disappear into layout. Data, or state, is the shadow
+          cast by collapsed possibility.
+        </p>
+      </div>
 
       <p></p>
       <h2>Stack</h2>
