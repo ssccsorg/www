@@ -1,3 +1,27 @@
+/* Homepage title with circular logo */
+.titleRow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+}
+
+.logo {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid #000000;
+    flex-shrink: 0;
+}
+
+/* On narrow screens, stack the logo above the title */
+@media (max-width: 768px) {
+    .titleRow {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
 /* Responsive navigation */
 .nav {
     font-size: 0.9rem;
