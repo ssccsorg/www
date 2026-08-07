@@ -1,5 +1,6 @@
 // @ts check
 import { themes as prismThemes } from 'prism-react-renderer';
+import webpack from 'webpack';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -114,6 +115,9 @@ export default {
         configureWebpack() {
           return {
             resolve: {
+              alias: {
+                'process/browser': require.resolve('process/browser.js'),
+              },
               fallback: {
                 assert: require.resolve('assert'),
                 buffer: require.resolve('buffer'),
@@ -121,6 +125,7 @@ export default {
                 https: require.resolve('https-browserify'),
                 os: require.resolve('os-browserify'),
                 path: require.resolve('path-browserify'),
+                process: require.resolve('process/browser.js'),
                 stream: require.resolve('stream-browserify'),
                 url: require.resolve('url'),
                 util: require.resolve('util'),
@@ -128,6 +133,12 @@ export default {
                 fs: false,
               },
             },
+            plugins: [
+              new webpack.ProvidePlugin({
+                process: require.resolve('process/browser.js'),
+                Buffer: ['buffer', 'Buffer'],
+              }),
+            ],
           };
         },
       };
