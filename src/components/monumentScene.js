@@ -6,15 +6,21 @@
 //   Segments S = (c, id) sit immutably on a coordinate space and are bound
 //   into a Scheme Sigma = (A, R, L, O). A Field F = (C, T) raises a constraint
 //   potential over the coordinate space. The admissible set A(Sigma, F) is the
-//   region where C(s) holds. An Observation Omega receives input from the
-//   admissible set, applies the Field, and collapses to an ephemeral
-//   Projection P = Omega(Sigma, F). Data D = I(P) is the shadow cast by
-//   collapsed possibility.
+//   region where C(s) holds. Observations Omega spread around the vertical
+//   center of the well, receive input from the admissible set, apply the
+//   Field, and each collapses to its own ephemeral Projection
+//   P = Omega(Sigma, F). Data D = I(P) is the shadow cast by collapsed
+//   possibility.
 
 const BASE_Z = -2.3; // ground plane of the coordinate space
-const OBS_X = 0.8; // observation node, above the deeper potential well
+const OBS_X = 0.8; // vertical center of the observed potential well
 const OBS_Y = -0.6;
-const OBS_Z = 5.4; // observation node height
+const OBS_Z = 5.4; // observation height
+// The observations spread around the vertical center of the well. Each one
+// collapses into its own projection, so projection count equals observation
+// count.
+const OBS_RADIUS = 1.15;
+const OBS_COUNT = 3;
 const ADMISSIBLE_MAX = 1.3; // constraint threshold C(s)
 // Scatter3d markers always draw above the surface, so the admissible points
 // are sunk slightly below the potential to make their centers meet the
@@ -157,27 +163,63 @@ function build() {
   const baseGrid = surfaceGrid(GRID_N);
 
   const admissible = admissiblePoints(FIELD_N);
-  // Eight admissible points closest to the observed well, for the input rays.
-  const nearObs = [...admissible]
-    .map((p) => ({ p, d: (p.x - OBS_X) ** 2 + (p.y - OBS_Y) ** 2 }))
-    .sort((a, b) => a.d - b.d)
-    .slice(0, 8)
-    .map((e) => e.p);
 
-  const raySegments = nearObs.map((p) => [
-    [p.x, p.y, p.z],
-    [OBS_X, OBS_Y, OBS_Z],
-  ]);
+  // Observations spread around the vertical center of the well. Each one
+  // reads the admissible points below it and collapses into its own
+  // projection, aligned with its own angle.
+  const obsPositions = [];
+  for (let i = 0; i < OBS_COUNT; i += 1) {
+    const angle = (2 * Math.PI * i) / OBS_COUNT - Math.PI / 2;
+    obsPositions.push({
+      x: OBS_X + OBS_RADIUS * Math.cos(angle),
+      y: OBS_Y + OBS_RADIUS * Math.sin(angle),
+      z: OBS_Z,
+    });
+  }
+
+  // Each observation receives input rays from the admissible points closest
+  // to its own position.
+  const raySegments = [];
+  for (const obs of obsPositions) {
+    const near = [...admissible]
+      .map((p) => ({ p, d: (p.x - obs.x) ** 2 + (p.y - obs.y) ** 2 }))
+      .sort((a, b) => a.d - b.d)
+      .slice(0, 4)
+      .map((e) => e.p);
+    for (const p of near) {
+      raySegments.push([
+        [p.x, p.y, p.z],
+        [obs.x, obs.y, obs.z],
+      ]);
+    }
+  }
 
   const anchorSegments = ANCHOR_CORNERS.map((c) => [
     [c[0], c[1], BASE_Z],
     [c[0], c[1], potential(c[0], c[1])],
   ]);
 
-  // The projection lands on the potential surface with the same contact
-  // treatment as the admissible markers, and its interpretation falls to the
-  // coordinate space ground as the data shadow.
-  const projZ = potential(OBS_X, OBS_Y) - ADMISSIBLE_SINK;
+  // Each projection lands on the potential surface with the same contact
+  // treatment as the admissible markers, aligned with its observation angle.
+  // Its interpretation falls to the coordinate space ground as a data shadow.
+  const projPoints = obsPositions.map((obs) => ({
+    x: obs.x,
+    y: obs.y,
+    z: potential(obs.x, obs.y) - ADMISSIBLE_SINK,
+  }));
+  const collapseSegments = obsPositions.map((obs, i) => [
+    [obs.x, obs.y, obs.z],
+    [projPoints[i].x, projPoints[i].y, projPoints[i].z],
+  ]);
+  const dataPoints = obsPositions.map((obs) => ({
+    x: obs.x,
+    y: obs.y,
+    z: BASE_Z,
+  }));
+  const interpretSegments = projPoints.map((p) => [
+    [p.x, p.y, p.z],
+    [p.x, p.y, BASE_Z],
+  ]);
 
   const data = [
     // Coordinate space ground plane, the substrate of immutable Segments.
@@ -251,62 +293,52 @@ function build() {
       line: { color: "#c96f1a", width: 2, dash: "dot" },
       name: "Observation Ω · applies Field",
     }),
-    // The observation node itself.
+    // The observation nodes, spread around the vertical center of the well.
     {
       type: "scatter3d",
       mode: "markers",
-      x: [OBS_X],
-      y: [OBS_Y],
-      z: [OBS_Z],
+      x: obsPositions.map((o) => o.x),
+      y: obsPositions.map((o) => o.y),
+      z: obsPositions.map((o) => o.z),
       marker: {
         color: "#d4a017",
         size: 11,
         symbol: "diamond",
         line: { color: "#000000", width: 1 },
       },
-      name: "Observation Ω₁",
+      name: "Observation Ω",
     },
-    // Collapse: observation resolves to an ephemeral projection that touches
-    // the potential surface.
-    lineTrace(
-      [
-        [
-          [OBS_X, OBS_Y, OBS_Z],
-          [OBS_X, OBS_Y, projZ],
-        ],
-      ],
-      { line: { color: "#111111", width: 3 }, showlegend: false },
-    ),
-    // Projection P = Omega(Sigma, F), ephemeral state on the surface.
+    // Collapse: each observation resolves to its own ephemeral projection
+    // that touches the potential surface at the same angle.
+    lineTrace(collapseSegments, {
+      line: { color: "#111111", width: 3 },
+      showlegend: false,
+    }),
+    // Projection P = Omega(Sigma, F), ephemeral states on the surface.
     {
       type: "scatter3d",
       mode: "markers",
-      x: [OBS_X],
-      y: [OBS_Y],
-      z: [projZ],
+      x: projPoints.map((p) => p.x),
+      y: projPoints.map((p) => p.y),
+      z: projPoints.map((p) => p.z),
       marker: { color: "#000000", size: 9, symbol: "square" },
-      name: "Projection P₁ = Ω(Σ, F) · ephemeral",
+      name: "Projection P = Ω(Σ, F) · ephemeral",
     },
-    // Data D = I(P), the shadow cast by collapsed possibility on the ground.
+    // Data D = I(P), shadows cast by collapsed possibility on the ground.
     {
       type: "scatter3d",
       mode: "markers",
-      x: [OBS_X],
-      y: [OBS_Y],
-      z: [BASE_Z],
+      x: dataPoints.map((p) => p.x),
+      y: dataPoints.map((p) => p.y),
+      z: dataPoints.map((p) => p.z),
       marker: { color: "#000000", size: 6, symbol: "circle" },
-      name: "Data D₁ = I(P₁) · shadow",
+      name: "Data D = I(P) · shadow",
     },
-    // Interpretation: the projection is read into data as a ground shadow.
-    lineTrace(
-      [
-        [
-          [OBS_X, OBS_Y, projZ],
-          [OBS_X, OBS_Y, BASE_Z],
-        ],
-      ],
-      { line: { color: "#444444", width: 1.5, dash: "dot" }, showlegend: false },
-    ),
+    // Interpretation: each projection is read into data as a ground shadow.
+    lineTrace(interpretSegments, {
+      line: { color: "#444444", width: 1.5, dash: "dot" },
+      showlegend: false,
+    }),
     // Axiom text.
     {
       type: "scatter3d",
