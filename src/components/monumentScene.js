@@ -329,7 +329,7 @@ function build() {
       x: segmentCoords().map((p) => p[0]),
       y: segmentCoords().map((p) => p[1]),
       z: segmentCoords().map((p) => p[2]),
-      marker: { color: "#8a93a6", size: 4, opacity: 0.9, symbol: "circle" },
+      marker: { color: "#bababa", size: 4, opacity: 0.9, symbol: "circle" },
       name: "Segments S = (c, id) · immutable",
     },
     // Static Scheme: closed loop plus interior relations.
@@ -385,7 +385,7 @@ function build() {
       x: dataPoints.map((p) => p.x),
       y: dataPoints.map((p) => p.y),
       z: dataPoints.map((p) => p.z),
-      marker: { color: "#999999", size: 4, symbol: "circle" },
+      marker: { color: "#000000", size: 4, symbol: "circle" },
       name: "Data D = I(P) · shadow",
     },
     // Interpretation: each projection is refracted to a ground shadow.
