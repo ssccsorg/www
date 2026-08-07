@@ -56,7 +56,8 @@ export function SsccsMonument() {
   }, []);
 
   // Gentle orbit around the scene. Started from onInitialized, because
-  // relayout needs the plotly graph to be fully laid out first.
+  // relayout needs the plotly graph to be fully laid out first. The orbit
+  // moves the camera eye only, so the visitor's own center stays untouched.
   const startOrbit = (graphDiv) => {
     if (interacted || !libs || !graphDiv) {
       return;
@@ -107,17 +108,22 @@ export function SsccsMonument() {
         data={MONUMENT_SCENE.data}
         layout={{
           ...MONUMENT_SCENE.layout,
+          uirevision: "ssccs-monument",
           showlegend: showLegend,
           scene: {
             ...MONUMENT_SCENE.layout.scene,
             dragmode: "turntable",
-            camera: {
-              ...MONUMENT_SCENE.layout.scene.camera,
-              eye: EYE,
-            },
+            // The camera is intentionally omitted here. It is applied once on
+            // initialization below, so re-renders never reset the visitor's
+            // view back to the orbit start position.
           },
         }}
-        onInitialized={(figure, graphDiv) => startOrbit(graphDiv)}
+        onInitialized={(figure, graphDiv) => {
+          libs.Plotly.relayout(graphDiv, {
+            "scene.camera": MONUMENT_SCENE.layout.scene.camera,
+          });
+          startOrbit(graphDiv);
+        }}
         style={{ width: "100%", height: "100%" }}
         useResizeHandler={true}
         config={{ displayModeBar: false }}

@@ -365,7 +365,7 @@ function build() {
     // Collapse: each observation fixes its contacted admissible points as
     // ephemeral projections on the potential surface.
     lineTrace(collapseSegments, {
-      line: { color: "#8a8a8a", width: 1 },
+      line: { color: "#aaaaaa", width: 1 },
       showlegend: false,
     }),
     // Projection P = Omega(Sigma, F), one per admissible contact point.
@@ -374,8 +374,8 @@ function build() {
       mode: "markers",
       x: projPoints.map((p) => p.x),
       y: projPoints.map((p) => p.y),
-      z: projPoints.map((p) => p.z),
-      marker: { color: "#000000", size: 4.5, symbol: "square" },
+      z: projPoints.map((p) => p.z+0.1),
+      marker: { color: "#b9b9b9", size: 4.5, symbol: "square" },
       name: "Projection P = Ω(Σ, F) · ephemeral",
     },
     // Data D = I(P), shadows refracted through the surface onto the ground.
@@ -385,12 +385,12 @@ function build() {
       x: dataPoints.map((p) => p.x),
       y: dataPoints.map((p) => p.y),
       z: dataPoints.map((p) => p.z),
-      marker: { color: "#000000", size: 6, symbol: "circle" },
+      marker: { color: "#999999", size: 4, symbol: "circle" },
       name: "Data D = I(P) · shadow",
     },
     // Interpretation: each projection is refracted to a ground shadow.
     lineTrace(interpretSegments, {
-      line: { color: "#a6a6a6", width: 0.75, dash: "dot" },
+      line: { color: "#262626", width: 0.75, dash: "dot" },
       showlegend: false,
     }),
     // Axiom text.
@@ -426,7 +426,7 @@ function build() {
       aspectmode: "manual",
       aspectratio: { x: 1.2, y: 1.2, z: 1.2 },
       camera: {
-        eye: { x: 1.1, y: 0.3, z: 0.95 },
+        eye: { x: 1.6, y: 1, z: 0.8 },
         center: { x: 0, y: 0, z: -0.3 },
       },
       xaxis: {
