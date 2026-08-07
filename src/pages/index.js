@@ -71,6 +71,7 @@ export default function Home() {
             width: "44px",
             height: "44px",
             borderRadius: "50%",
+            border: "1px solid rgba(0,0,0,0.15)",
             flexShrink: 0,
           }}
         />
