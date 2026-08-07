@@ -51,6 +51,37 @@ function potential(x, y) {
   return 2.2 + 0.12 * (x * x + y * y) - 1.8 * wellA - 1.4 * wellB;
 }
 
+// Unit normal of the potential surface at (x, y), by central differences.
+function surfaceNormal(x, y) {
+  const e = 0.05;
+  const dzdx = (potential(x + e, y) - potential(x - e, y)) / (2 * e);
+  const dzdy = (potential(x, y + e) - potential(x, y - e)) / (2 * e);
+  const n = { x: -dzdx, y: -dzdy, z: 1 };
+  const len = Math.hypot(n.x, n.y, n.z);
+  return { x: n.x / len, y: n.y / len, z: n.z / len };
+}
+
+// Snell refraction of an incoming unit ray by the surface. The ray bends
+// away from the normal when eta is above 1. Returns null on total internal
+// reflection.
+function refract(v, n, eta) {
+  const dot = v.x * n.x + v.y * n.y + v.z * n.z;
+  const cosI = -dot;
+  const sin2T = eta * eta * (1 - cosI * cosI);
+  if (sin2T > 1) {
+    return null;
+  }
+  const cosT = Math.sqrt(1 - sin2T);
+  return {
+    x: eta * v.x + (eta * cosI - cosT) * n.x,
+    y: eta * v.y + (eta * cosI - cosT) * n.y,
+    z: eta * v.z + (eta * cosI - cosT) * n.z,
+  };
+}
+
+// Refractive index of the surface seen by the collapsing rays.
+const REFRACTION_INDEX = 1.5;
+
 function linspace(lo, hi, n) {
   const out = [];
   const step = (hi - lo) / (n - 1);
@@ -215,15 +246,33 @@ function build() {
     [c.obs.x, c.obs.y, c.obs.z],
     [c.x, c.y, c.z],
   ]);
-  const dataPoints = contactPoints.map((c) => ({
-    x: c.x,
-    y: c.y,
-    z: BASE_Z,
-  }));
-  const interpretSegments = projPoints.map((p) => [
-    [p.x, p.y, p.z],
-    [p.x, p.y, BASE_Z],
-  ]);
+  // The interpretation of each projection is refracted by the potential
+  // surface: the data shadow leaves at the incidence angle, bent by the
+  // curved surface, and lands on the coordinate space ground.
+  const dataPoints = [];
+  const interpretSegments = [];
+  for (let i = 0; i < contactPoints.length; i += 1) {
+    const p = projPoints[i];
+    const obs = contactPoints[i].obs;
+    const v = { x: p.x - obs.x, y: p.y - obs.y, z: p.z - obs.z };
+    const vLen = Math.hypot(v.x, v.y, v.z);
+    const vn = { x: v.x / vLen, y: v.y / vLen, z: v.z / vLen };
+    const r = refract(vn, surfaceNormal(p.x, p.y), REFRACTION_INDEX);
+    let dx = p.x;
+    let dy = p.y;
+    if (r && r.z < -1e-6) {
+      const t = (BASE_Z - p.z) / r.z;
+      if (t > 0) {
+        dx = p.x + t * r.x;
+        dy = p.y + t * r.y;
+      }
+    }
+    dataPoints.push({ x: dx, y: dy, z: BASE_Z });
+    interpretSegments.push([
+      [p.x, p.y, p.z],
+      [dx, dy, BASE_Z],
+    ]);
+  }
 
   const data = [
     // Coordinate space ground plane, the substrate of immutable Segments.
@@ -328,7 +377,7 @@ function build() {
       marker: { color: "#000000", size: 4.5, symbol: "square" },
       name: "Projection P = Ω(Σ, F) · ephemeral",
     },
-    // Data D = I(P), shadows cast by collapsed possibility on the ground.
+    // Data D = I(P), shadows refracted through the surface onto the ground.
     {
       type: "scatter3d",
       mode: "markers",
@@ -338,7 +387,7 @@ function build() {
       marker: { color: "#000000", size: 6, symbol: "circle" },
       name: "Data D = I(P) · shadow",
     },
-    // Interpretation: each projection is read into data as a ground shadow.
+    // Interpretation: each projection is refracted to a ground shadow.
     lineTrace(interpretSegments, {
       line: { color: "#444444", width: 1.5, dash: "dot" },
       showlegend: false,
