@@ -174,6 +174,11 @@ function build() {
     [c[0], c[1], potential(c[0], c[1])],
   ]);
 
+  // The projection lands on the potential surface with the same contact
+  // treatment as the admissible markers, and its interpretation falls to the
+  // coordinate space ground as the data shadow.
+  const projZ = potential(OBS_X, OBS_Y) - ADMISSIBLE_SINK;
+
   const data = [
     // Coordinate space ground plane, the substrate of immutable Segments.
     {
@@ -261,42 +266,43 @@ function build() {
       },
       name: "Observation Ω₁",
     },
-    // Collapse: observation resolves to an ephemeral projection.
+    // Collapse: observation resolves to an ephemeral projection that touches
+    // the potential surface.
     lineTrace(
       [
         [
           [OBS_X, OBS_Y, OBS_Z],
-          [OBS_X, OBS_Y, BASE_Z],
+          [OBS_X, OBS_Y, projZ],
         ],
       ],
       { line: { color: "#111111", width: 3 }, showlegend: false },
     ),
-    // Projection P = Omega(Sigma, F), ephemeral state on the ground plane.
+    // Projection P = Omega(Sigma, F), ephemeral state on the surface.
+    {
+      type: "scatter3d",
+      mode: "markers",
+      x: [OBS_X],
+      y: [OBS_Y],
+      z: [projZ],
+      marker: { color: "#000000", size: 9, symbol: "square" },
+      name: "Projection P₁ = Ω(Σ, F) · ephemeral",
+    },
+    // Data D = I(P), the shadow cast by collapsed possibility on the ground.
     {
       type: "scatter3d",
       mode: "markers",
       x: [OBS_X],
       y: [OBS_Y],
       z: [BASE_Z],
-      marker: { color: "#000000", size: 9, symbol: "square" },
-      name: "Projection P₁ = Ω(Σ, F) · ephemeral",
-    },
-    // Data D = I(P), the shadow cast by collapsed possibility.
-    {
-      type: "scatter3d",
-      mode: "markers",
-      x: [OBS_X],
-      y: [-0.15],
-      z: [BASE_Z],
       marker: { color: "#000000", size: 6, symbol: "circle" },
       name: "Data D₁ = I(P₁) · shadow",
     },
-    // Interpretation: projection is read into data.
+    // Interpretation: the projection is read into data as a ground shadow.
     lineTrace(
       [
         [
+          [OBS_X, OBS_Y, projZ],
           [OBS_X, OBS_Y, BASE_Z],
-          [OBS_X, -0.15, BASE_Z],
         ],
       ],
       { line: { color: "#444444", width: 1.5, dash: "dot" }, showlegend: false },
