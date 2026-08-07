@@ -1,0 +1,62 @@
+digraph SSCCS_Primitives {
+    rankdir=LR;
+    graph [fontname="sans-serif", fontsize=10, pad="0.3", bgcolor="transparent", nodesep=0.5, ranksep=1.0, splines=ortho, newrank=true];
+    node [fontname="sans-serif", fontsize=10, shape=box, style=rounded, margin="0.25,0.12"];
+    edge [color="#555555", arrowsize=0.8, fontsize=9];
+
+    Axiom [label="Computation is the collapse\nof structured potential\n· time is a coordinate\nLoops disappear into layout\n· state is the shadow of collapsed possibility", shape=plaintext, fontsize=11, fontcolor="#444444"];
+
+    subgraph cluster_static {
+        label="Static Infrastructure · immutable";
+        style="rounded"; color="#bbbbbb"; fontsize=9; fontcolor="#666666";
+        node [shape=point, width=0.15, height=0.15];
+        s1 [xlabel="Segment S₁\n(unbound)", fontcolor="#AAAAAA"];
+        s2 [xlabel="Segment S₂\n(c, id)"];
+        s3 [xlabel="Segment S₃\n(c, id)"];
+        node [shape=cds];
+        Scheme [label="Scheme Σ₁\n(A, R, L, O)"];
+        { rank=same; s1; s2; s3; Scheme }
+    }
+
+    subgraph cluster_dynamic {
+        label="Dynamic Substrate · mutable";
+        style="rounded"; color="#bbbbbb"; fontsize=9; fontcolor="#666666";
+        node [shape=note];
+        Field [label="Field F₁ = (C, T)\nconstraints + transitions"];
+        Admissible [label="Admissible set\nA(Σ₁, F₁) = {s | C(s)}"];
+        { rank=same; Field; Admissible }
+        Field -> Admissible [xlabel="defines", arrowhead=none];
+    }
+
+    subgraph cluster_active {
+        label="Active Event";
+        style="rounded"; color="#bbbbbb"; fontsize=9; fontcolor="#666666";
+        node [shape=ellipse];
+        Observation [label="Observation Ω₁"];
+        node [shape=box];
+        Projection [label="Projection P₁\nP₁ = Ω₁(Σ₁, F₁)\nephemeral"];
+        node [shape=box, style=rounded];
+        Data [label="Data D₁\nD₁ = I(P₁)"];
+        { rank=same; Observation; Projection; Data }
+        Observation -> Projection [xlabel="collapses"];
+        Projection -> Data [xlabel="interpret", style=dotted];
+    }
+
+    edge [arrowhead=none];
+    Scheme -> s2;
+    Scheme -> s3;
+
+    edge [arrowhead=normal];
+    Scheme -> Field [xlabel="binds"];
+    s2 -> Field [xlabel="anchors"];
+    s3 -> Field;
+    Admissible -> Observation [xlabel="input"];
+
+    edge [arrowhead=normal, style=dashed];
+    Observation -> Field [xlabel="applies"];
+
+    Axiom -> Scheme [style=dotted, color="#cccccc"];
+
+    Data -> Invariants [style=invis];
+    Invariants [label="deterministic\nsame Σ, F, t → same P\n· structure stays, projections travel\n· coordinate = address", shape=plaintext, fontsize=10, fontcolor="#444444"];
+}

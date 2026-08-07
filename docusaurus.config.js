@@ -1,5 +1,6 @@
 // @ts check
 import { themes as prismThemes } from 'prism-react-renderer';
+import webpack from 'webpack';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -104,6 +105,43 @@ export default {
             ignoreWarnings: [
               { module: /vscode-languageserver-types/ },
             ]
+          };
+        },
+      };
+    },
+    function resolveNodePolyfills() {
+      return {
+        name: 'resolve-node-polyfills',
+        configureWebpack() {
+          return {
+            resolve: {
+              alias: {
+                'process/browser': require.resolve('process/browser.js'),
+              },
+              fallback: {
+                assert: require.resolve('assert'),
+                buffer: require.resolve('buffer'),
+                http: require.resolve('stream-http'),
+                https: require.resolve('https-browserify'),
+                os: require.resolve('os-browserify'),
+                path: require.resolve('path-browserify'),
+                process: require.resolve('process/browser.js'),
+                stream: require.resolve('stream-browserify'),
+                url: require.resolve('url'),
+                util: require.resolve('util'),
+                zlib: require.resolve('browserify-zlib'),
+                fs: false,
+              },
+            },
+            plugins: [
+              new webpack.ProvidePlugin({
+                process: require.resolve('process/browser.js'),
+                Buffer: ['buffer', 'Buffer'],
+              }),
+              new webpack.DefinePlugin({
+                'process.env.NODE_DEBUG': undefined,
+              }),
+            ],
           };
         },
       };
