@@ -177,8 +177,10 @@ function build() {
     });
   }
 
-  // Each observation receives input rays from the admissible points closest
-  // to its own position.
+  // Each observation touches a handful of admissible points below it. Every
+  // contacted point becomes its own projection, so projection count equals
+  // the number of admissible contact points.
+  const contactPoints = [];
   const raySegments = [];
   for (const obs of obsPositions) {
     const near = [...admissible]
@@ -187,6 +189,7 @@ function build() {
       .slice(0, 4)
       .map((e) => e.p);
     for (const p of near) {
+      contactPoints.push({ x: p.x, y: p.y, z: p.z, obs });
       raySegments.push([
         [p.x, p.y, p.z],
         [obs.x, obs.y, obs.z],
@@ -199,21 +202,22 @@ function build() {
     [c[0], c[1], potential(c[0], c[1])],
   ]);
 
-  // Each projection lands on the potential surface with the same contact
-  // treatment as the admissible markers, aligned with its observation angle.
-  // Its interpretation falls to the coordinate space ground as a data shadow.
-  const projPoints = obsPositions.map((obs) => ({
-    x: obs.x,
-    y: obs.y,
-    z: potential(obs.x, obs.y) - ADMISSIBLE_SINK,
+  // Each contacted admissible point is fixed as an ephemeral projection on
+  // the potential surface, with the same contact treatment as the admissible
+  // markers. Its interpretation falls to the coordinate space ground as a
+  // data shadow.
+  const projPoints = contactPoints.map((c) => ({
+    x: c.x,
+    y: c.y,
+    z: c.z,
   }));
-  const collapseSegments = obsPositions.map((obs, i) => [
-    [obs.x, obs.y, obs.z],
-    [projPoints[i].x, projPoints[i].y, projPoints[i].z],
+  const collapseSegments = contactPoints.map((c) => [
+    [c.obs.x, c.obs.y, c.obs.z],
+    [c.x, c.y, c.z],
   ]);
-  const dataPoints = obsPositions.map((obs) => ({
-    x: obs.x,
-    y: obs.y,
+  const dataPoints = contactPoints.map((c) => ({
+    x: c.x,
+    y: c.y,
     z: BASE_Z,
   }));
   const interpretSegments = projPoints.map((p) => [
@@ -308,13 +312,13 @@ function build() {
       },
       name: "Observation Ω",
     },
-    // Collapse: each observation resolves to its own ephemeral projection
-    // that touches the potential surface at the same angle.
+    // Collapse: each observation fixes its contacted admissible points as
+    // ephemeral projections on the potential surface.
     lineTrace(collapseSegments, {
       line: { color: "#111111", width: 3 },
       showlegend: false,
     }),
-    // Projection P = Omega(Sigma, F), ephemeral states on the surface.
+    // Projection P = Omega(Sigma, F), one per admissible contact point.
     {
       type: "scatter3d",
       mode: "markers",
