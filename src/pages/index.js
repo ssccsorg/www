@@ -407,14 +407,14 @@ const PARTNERS = [
     src: appendDateQuery("./images/openaire.svg"),
     h: "40px",
   },
-  {
-    name: "CERN",
-    href: appendDateQuery(
-      "https://openscience.cern/zenodo",
-    ),
-    src: appendDateQuery("./images/cern.svg"),
-    h: "60px",
-  },
+  // {
+  //   name: "CERN",
+  //   href: appendDateQuery(
+  //     "https://openscience.cern/zenodo",
+  //   ),
+  //   src: appendDateQuery("./images/cern.svg"),
+  //   h: "60px",
+  // },
 ];
 
 const PartnerLogo = ({ href, src, alt, height }) => (
