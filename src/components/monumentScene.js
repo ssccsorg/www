@@ -308,20 +308,6 @@ function build() {
       showlegend: false,
       hoverinfo: "none",
     },
-    {
-      type: "scatter3d",
-      mode: "text",
-      x: [0],
-      y: [0],
-      z: [6.3],
-      text: [
-        "time is a coordinate · loops disappear into layout · coordinate = address",
-      ],
-      textfont: { color: "#666666", size: 11 },
-      textposition: "middle center",
-      showlegend: false,
-      hoverinfo: "none",
-    },
   ];
 
   const layout = {
@@ -342,10 +328,10 @@ function build() {
     },
     scene: {
       aspectmode: "manual",
-      aspectratio: { x: 1, y: 1, z: 0.9 },
+      aspectratio: { x: 1, y: 1, z: 0.95 },
       camera: {
-        eye: { x: 1.9, y: -1.6, z: 1.1 },
-        center: { x: 0, y: 0, z: -0.35 },
+        eye: { x: 1.1, y: -0.95, z: 0.8 },
+        center: { x: 0, y: 0, z: 0.5 },
       },
       xaxis: {
         title: { text: "segment coordinate space", font: { size: 11, color: "#666666" } },
