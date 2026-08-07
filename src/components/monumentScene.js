@@ -208,16 +208,17 @@ function build() {
     });
   }
 
-  // Each observation touches a handful of admissible points below it. Every
-  // contacted point becomes its own projection, so projection count equals
-  // the number of admissible contact points.
+  // Each observation touches a ring of admissible points below it, taken
+  // further out so the projection rays spread wider. Every contacted point
+  // becomes its own projection, so projection count equals the number of
+  // admissible contact points.
   const contactPoints = [];
   const raySegments = [];
   for (const obs of obsPositions) {
     const near = [...admissible]
       .map((p) => ({ p, d: (p.x - obs.x) ** 2 + (p.y - obs.y) ** 2 }))
       .sort((a, b) => a.d - b.d)
-      .slice(0, 4)
+      .slice(4, 8)
       .map((e) => e.p);
     for (const p of near) {
       contactPoints.push({ x: p.x, y: p.y, z: p.z, obs });
@@ -364,7 +365,7 @@ function build() {
     // Collapse: each observation fixes its contacted admissible points as
     // ephemeral projections on the potential surface.
     lineTrace(collapseSegments, {
-      line: { color: "#111111", width: 3 },
+      line: { color: "#8a8a8a", width: 1 },
       showlegend: false,
     }),
     // Projection P = Omega(Sigma, F), one per admissible contact point.
@@ -389,7 +390,7 @@ function build() {
     },
     // Interpretation: each projection is refracted to a ground shadow.
     lineTrace(interpretSegments, {
-      line: { color: "#444444", width: 1.5, dash: "dot" },
+      line: { color: "#a6a6a6", width: 0.75, dash: "dot" },
       showlegend: false,
     }),
     // Axiom text.
