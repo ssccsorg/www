@@ -51,9 +51,11 @@ export default function Home() {
         </span>
       </nav>
 
-      <hr
-        style={{ margin: "30px 0", border: "0", borderTop: "1px solid #000" }}
+      
+      <p
+        style={{ margin: "35px 0"}}
       />
+
 
       <h1 align="center" className={styles.titleRow}>
         <img
@@ -67,7 +69,7 @@ export default function Home() {
       <hr
         style={{ margin: "30px 0", border: "0", borderTop: "1px solid #000" }}
       />
-
+      
       <p>
         <a href="https://docs.ssccs.org/axioms/ssccs.html">SSCCS</a> (Schema–Segment Composition Computing System) is an open‑source computing systems initiative that replaces the instruction‑centric model with an observation‑driven architecture: computation is the collapse of structured potential across a coordinate space of immutable Segments and dynamic Fields. Parallelism and verifiability emerge from the structure itself, with near‑linear scalability and energy efficiency as consequences; state is the result of projection, and time is one coordinate among many.
       </p>
@@ -145,50 +147,40 @@ export default function Home() {
       </ul>
       <p></p>
       <h2>Where</h2>
-      <p>
-        The model is built for workloads where data movement is the binding
-        constraint. For example:
-      </p>
+      <p>Workloads where data movement is the binding constraint:</p>
       <ul>
         <li>
           <a href="https://docs.ssccs.org/research/riscv_space.html">
             Space systems
           </a>
-          : Radiation tolerance comes from structural reproducibility. After an
-          upset, the system re‑observes the same immutable Scheme,
-          deterministically arriving at the same configuration without expensive
-          hardware redundancy.
+          : radiation tolerance from structural reproducibility. After an
+          upset, the system re-observes the same immutable Scheme and
+          deterministically returns to the same configuration, without
+          redundant hardware.
         </li>
         <li>
-          Embedded and edge systems: the coordinate space fits in a
-          no-allocator array small enough for OS-less microcontrollers and
-          radiation-tolerant hardware, replacing hash units with
-          combinational decoders.
+          Embedded and edge systems: a no-allocator coordinate space fits
+          OS-less microcontrollers and radiation-tolerant hardware, replacing
+          hash units with combinational decoders.
         </li>
         <li>
-          AI inference (LLMs, diffusion models, etc.): Model weights are largely
-          static. An observation‑centric model keeps them in place and performs
-          computation where they reside, directly tackling the memory bandwidth
-          bottleneck that dominates inference latency and energy consumption.
+          AI inference: model weights stay in place and computation moves to
+          them, attacking the memory-bandwidth bottleneck behind inference
+          latency and energy cost.
         </li>
         <li>
-          Swarm robotics: Distributed agents observe a shared structural
-          blueprint (e.g., formation geometry) while moving locally. This
-          eliminates expensive coordination chatter and makes collective
-          behavior an emergent property of observing the same Scheme under
-          different local Fields.
+          Swarm robotics: agents observe a shared blueprint locally, making
+          collective behavior emergent without coordination chatter.
         </li>
         <li>
-          Climate and scientific computing: Massive dependency grids (e.g., PDE
-          stencils) can be encoded as adjacency relations in a Scheme. The
-          compiler maps these relations directly into the memory subsystem so
-          that each timestep becomes a parallel observation of the grid, not a
-          sequence of explicit data movements.
+          Climate and scientific computing: dependency grids become adjacency
+          relations compiled into memory, so each timestep is a parallel
+          observation instead of data movement.
         </li>
         <li>
-          Scientific data infrastructure: with CERN, coordinate indexing is
-          applied to ROOT's TTree, collapsing read-request bottlenecks that
-          took hours into seconds.
+          Scientific data infrastructure: coordinate indexing replaces hash
+          lookup in large datasets, collapsing read-request bottlenecks from
+          hours to seconds.
         </li>
       </ul>
       <p></p>
