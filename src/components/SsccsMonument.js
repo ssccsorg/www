@@ -22,14 +22,16 @@ export function SsccsMonument() {
     let cancelled = false;
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
-    Promise.all([import("react-plotly.js"), import("plotly.js")]).then(
-      ([plotModule, plotlyModule]) => {
-        if (cancelled) {
-          return;
-        }
-        setLibs({ Plot: plotModule.default, Plotly: plotlyModule.default });
-      },
-    );
+    Promise.all([
+      import("react-plotly.js/factory"),
+      import("plotly.js/dist/plotly.js"),
+    ]).then(([factoryModule, plotlyModule]) => {
+      if (cancelled) {
+        return;
+      }
+      const Plot = factoryModule.default(plotlyModule.default);
+      setLibs({ Plot, Plotly: plotlyModule.default });
+    });
     return () => {
       cancelled = true;
       window.removeEventListener("resize", handleResize);

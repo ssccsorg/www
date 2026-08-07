@@ -138,6 +138,9 @@ export default {
                 process: require.resolve('process/browser.js'),
                 Buffer: ['buffer', 'Buffer'],
               }),
+              new webpack.DefinePlugin({
+                'process.env.NODE_DEBUG': undefined,
+              }),
             ],
           };
         },
