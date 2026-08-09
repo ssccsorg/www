@@ -424,10 +424,10 @@ function build() {
     },
     scene: {
       aspectmode: "manual",
-      aspectratio: { x: 1.2, y: 1.2, z: 1.2 },
+      aspectratio: { x: 1.1, y: 1.1, z: 1.2 },
       camera: {
-        eye: { x: 1.6, y: 1, z: 0.8 },
-        center: { x: 0, y: 0, z: -0.3 },
+        eye: { x: 1, y: 1, z: 0.8 },
+        center: { x: 0, y: 0, z: -0.2 },
       },
       xaxis: {
         title: { text: "segment coordinate space", font: { size: 11, color: "#666666" } },
