@@ -1,19 +1,63 @@
 // Interactive three-dimensional monument for the SSCCS homepage.
 //
 // Plotly is loaded lazily in the browser, because its modules reference
-// browser globals during evaluation. Until the library arrives, a placeholder
-// of the same dimensions is rendered. The scene drifts in a slow orbit until
-// the visitor takes control with a pointer drag.
+// browser globals during evaluation. The gl3d partial bundle is used instead
+// of the full library, because the scene only needs the surface and scatter3d
+// trace types. Until the library arrives, a placeholder of the same
+// dimensions is rendered. The scene drifts in a slow orbit until the visitor
+// takes control with a pointer drag.
 
 import { useEffect, useRef, useState } from "react";
 import { MONUMENT_SCENE } from "./monumentScene";
 
 const EYE = MONUMENT_SCENE.layout.scene.camera.eye;
 
+const UNAVAILABLE_LABEL =
+  "The interactive scene is unavailable in this browser. WebGL support or the plotly library could not be loaded.";
+
+const SPINNER_KEYFRAMES = `
+@keyframes ssccs-monument-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+`;
+
+const SPINNER_STYLE = {
+  width: "28px",
+  height: "28px",
+  border: "3px solid #dddddd",
+  borderTopColor: "#222222",
+  borderRadius: "50%",
+  animation: "ssccs-monument-spin 0.9s linear infinite",
+};
+
+// A plotly scene with three-dimensional traces requires a WebGL context.
+// Detect support up front so a browser without WebGL shows a message instead
+// of an empty container that never resolves.
+function webglAvailable() {
+  try {
+    const canvas = document.createElement("canvas");
+    const gl =
+      canvas.getContext("webgl") ||
+      canvas.getContext("experimental-webgl");
+    if (gl) {
+      const lose = gl.getExtension("WEBGL_lose_context");
+      if (lose) {
+        lose.loseContext();
+      }
+    }
+    return !!gl;
+  } catch {
+    return false;
+  }
+}
+
 export function SsccsMonument() {
   const orbitRef = useRef(null);
   const [interacted, setInteracted] = useState(false);
   const [libs, setLibs] = useState(null);
+  const [loadFailed, setLoadFailed] = useState(false);
   const [width, setWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 1200,
   );
@@ -22,16 +66,26 @@ export function SsccsMonument() {
     let cancelled = false;
     const handleResize = () => setWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
+    if (!webglAvailable()) {
+      setLoadFailed(true);
+      return () => window.removeEventListener("resize", handleResize);
+    }
     Promise.all([
       import("react-plotly.js/factory"),
-      import("plotly.js/dist/plotly.js"),
-    ]).then(([factoryModule, plotlyModule]) => {
-      if (cancelled) {
-        return;
-      }
-      const Plot = factoryModule.default(plotlyModule.default);
-      setLibs({ Plot, Plotly: plotlyModule.default });
-    });
+      import("plotly.js/dist/plotly-gl3d.min.js"),
+    ])
+      .then(([factoryModule, plotlyModule]) => {
+        if (cancelled) {
+          return;
+        }
+        const Plot = factoryModule.default(plotlyModule.default);
+        setLibs({ Plot, Plotly: plotlyModule.default });
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setLoadFailed(true);
+        }
+      });
     return () => {
       cancelled = true;
       window.removeEventListener("resize", handleResize);
@@ -88,9 +142,40 @@ export function SsccsMonument() {
     position: "relative",
   };
 
+  const messageStyle = {
+    ...placeholderStyle,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "#555555",
+    fontSize: "14px",
+    textAlign: "center",
+    padding: "0 24px",
+    boxSizing: "border-box",
+  };
+
+  if (loadFailed) {
+    return (
+      <div
+        role="img"
+        aria-label="SSCCS primitives: Segments, Scheme, Field, Observation, Projection, Data"
+        style={messageStyle}
+      >
+        {UNAVAILABLE_LABEL}
+      </div>
+    );
+  }
+
   if (!libs) {
     return (
-      <div role="img" aria-label="SSCCS primitives: Segments, Scheme, Field, Observation, Projection, Data" style={placeholderStyle} />
+      <div
+        role="img"
+        aria-label="SSCCS primitives: Segments, Scheme, Field, Observation, Projection, Data"
+        style={messageStyle}
+      >
+        <style>{SPINNER_KEYFRAMES}</style>
+        <div style={SPINNER_STYLE} aria-hidden="true" />
+      </div>
     );
   }
 
