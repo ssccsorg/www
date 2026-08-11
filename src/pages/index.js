@@ -26,7 +26,7 @@ export default function Home() {
         <span style={{ fontWeight: "bold" }}>·</span>
         
         <span className={styles.group}>
-          <a href={"https://docs.ssccs.org/projects/"}>Ecosystem</a>
+          <a href={"https://docs.ssccs.org/projects/"}>Projects</a>
         </span>
         
         <span style={{ fontWeight: "bold" }}>·</span>
