@@ -208,21 +208,21 @@ export default function Home() {
           heterogeneous knowledge into a unified, queryable structure.
         </li>
         <li>
-          <a href="https://docs.ssccs.org/partnerships/aws.html">
+          <a href="https://docs.ssccs.org/works/aws.html">
             Strategic partnerships
           </a>
           : with infrastructure leaders to extend the reach of agentic
           research environments.
         </li>
         <li>
-          <a href="https://docs.ssccs.org/partnerships/cern/">
+          <a href="https://docs.ssccs.org/works/cern/">
             Scientific partnership with CERN
           </a>
           : applying coordinate indexing to high-energy physics data
           infrastructure.
         </li>
         <li>
-          <a href="https://docs.ssccs.org/partnerships/openhw_integration.html">
+          <a href="https://docs.ssccs.org/works/openhw_integration.html">
             Hardware validation
           </a>
           : phased prototyping from software emulation to FPGA deployment, with a
