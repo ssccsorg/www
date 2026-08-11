@@ -175,7 +175,7 @@ export default function Home() {
           observation instead of data movement.
         </li>
         <li>
-          Scientific data infrastructure: coordinate indexing replaces hash
+          Scientific data infrastructure: <a href="https://docs.ssccs.org/works/cern/root-ttree">coordinate indexing</a> replaces hash
           lookup in large datasets, collapsing read-request bottlenecks from
           hours to seconds.
         </li>
