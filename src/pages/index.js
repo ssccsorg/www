@@ -263,7 +263,7 @@ export default function Home() {
         </li>
         <li>
           <a href="https://docs.ssccs.org/projects/sdbs">SDBS</a>:
-          single-path artifact pipeline for reproducible, auditable builds.
+          single-path artifact compiler for reproducible, auditable knowledge base.
         </li>
       </ul>
       <p></p>
