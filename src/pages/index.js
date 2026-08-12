@@ -215,13 +215,6 @@ export default function Home() {
           research environments.
         </li>
         <li>
-          <a href="https://docs.ssccs.org/works/cern/">
-            Scientific partnership with CERN
-          </a>
-          : applying coordinate indexing to high-energy physics data
-          infrastructure.
-        </li>
-        <li>
           <a href="https://docs.ssccs.org/works/openhw_integration.html">
             Hardware validation
           </a>
@@ -281,7 +274,28 @@ export default function Home() {
         instantiations of the SSCCS model are already in motion; we are selective
         about collaborators who bring engineering depth and long-term commitment.
         Opportunities include research collaboration, software toolchain
-        development, and joint hardware validation.
+        development, and joint hardware validation. Current representative engagements:
+      </p>
+      <ul>
+        <li>
+          <a href="https://docs.ssccs.org/works/cern/">
+            Contribution to CERN science ecosystem
+          </a>
+          : supporting large-scale physics data infrastructure through our
+          software stack.
+        </li>
+        <li>
+          <a href="https://docs.ssccs.org/works/openhw_integration">
+            Eclipse Foundation CORE-V platforms
+          </a>
+          : phased collaboration to validate our core primitives and materialization.
+        </li>
+      </ul>
+      <p>
+        For the full list of current engagements, see{" "}
+        <a href="https://docs.ssccs.org/works/#current-engagements">
+          Current Engagements
+        </a>.
       </p>
 
       <p></p>
