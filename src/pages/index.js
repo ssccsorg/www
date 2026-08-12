@@ -231,7 +231,7 @@ export default function Home() {
       </p>
       <ul>
         <li>
-          <a href="https://github.com/ssccsorg/ssccs/tree/main/poc">Abstract PoCs</a>:
+          <a href="https://github.com/ssccsorg/ssccs/tree/main/poc">PoCs</a>:
           SSCCS is a paradigm, not a single implementation. Its abstract
           primitives are being proven in parallel across RTL, RISC-V assembly,
           and current-language PoCs before a reference compiler and runtime
