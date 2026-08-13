@@ -10,8 +10,6 @@
 import { useEffect, useRef, useState } from "react";
 import { MONUMENT_SCENE } from "./monumentScene";
 
-const EYE = MONUMENT_SCENE.layout.scene.camera.eye;
-
 const UNAVAILABLE_LABEL =
   "The interactive scene is unavailable in this browser. WebGL support or the plotly library could not be loaded.";
 
@@ -112,6 +110,11 @@ export function SsccsMonument() {
   // Gentle orbit around the scene. Started from onInitialized, because
   // relayout needs the plotly graph to be fully laid out first. The orbit
   // moves the camera eye only, so the visitor's own center stays untouched.
+  // The circle is derived from the camera actually applied to the scene at
+  // this moment: its radius is the in-plane distance of the current eye and
+  // its starting azimuth is the current eye angle. The first tick therefore
+  // continues from the current view for any camera definition, so the drift
+  // never snaps away from the view that was just shown.
   const startOrbit = (graphDiv) => {
     if (interacted || !libs || !graphDiv) {
       return;
@@ -119,8 +122,14 @@ export function SsccsMonument() {
     if (orbitRef.current) {
       window.clearInterval(orbitRef.current);
     }
-    const radius = Math.hypot(EYE.x, EYE.y, EYE.z);
-    let azimuth = Math.atan2(EYE.y, EYE.x);
+    const applied =
+      (graphDiv._fullLayout &&
+        graphDiv._fullLayout.scene &&
+        graphDiv._fullLayout.scene.camera) ||
+      MONUMENT_SCENE.layout.scene.camera;
+    const { x, y, z } = applied.eye;
+    const radius = Math.hypot(x, y);
+    let azimuth = Math.atan2(y, x);
     orbitRef.current = window.setInterval(() => {
       azimuth += 0.008;
       if (!graphDiv._fullLayout) {
@@ -130,7 +139,7 @@ export function SsccsMonument() {
         "scene.camera.eye": {
           x: radius * Math.cos(azimuth),
           y: radius * Math.sin(azimuth),
-          z: EYE.z,
+          z,
         },
       });
     }, 90);
@@ -198,15 +207,14 @@ export function SsccsMonument() {
           scene: {
             ...MONUMENT_SCENE.layout.scene,
             dragmode: "turntable",
-            // The camera is intentionally omitted here. It is applied once on
-            // initialization below, so re-renders never reset the visitor's
-            // view back to the orbit start position.
+            // The camera ships in the initial layout so the first frame
+            // already shows the final view. The `uirevision` above keeps
+            // the camera stable across re-renders, and the orbit animation
+            // moves it with relayout.
+            camera: MONUMENT_SCENE.layout.scene.camera,
           },
         }}
         onInitialized={(figure, graphDiv) => {
-          libs.Plotly.relayout(graphDiv, {
-            "scene.camera": MONUMENT_SCENE.layout.scene.camera,
-          });
           startOrbit(graphDiv);
         }}
         style={{ width: "100%", height: "100%" }}
