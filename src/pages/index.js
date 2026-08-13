@@ -281,7 +281,7 @@ export default function Home() {
           <a href="https://docs.ssccs.org/works/cern/">
             Contribution to CERN science ecosystem
           </a>
-          : supporting large-scale physics data infrastructure through our
+          : supporting to tackle the extreme computational challenges of High-Energy Physics (HEP) through our
           software stack.
         </li>
         <li>
