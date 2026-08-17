@@ -297,7 +297,7 @@ export default function Home() {
       <h2>Sponsorship</h2>
       <p>
         SSCCS is an independent, non-profit initiative committed to public-good
-        infrastructure. The <a href="https://github.com/sponsors/ssccsorg">official sponsorship charter on GitHub Sponsors</a> describes the funded work: open-source releases, free documentation,
+        infrastructure. The official sponsorship charter on <a href="https://github.com/sponsors/ssccsorg">GitHub Sponsors</a> describes the funded work: open-source releases, free documentation,
         and research into energy-efficient, verifiable computing.
       </p>
       <hr
