@@ -176,8 +176,7 @@ export default function Home() {
         </li>
         <li>
           Scientific data infrastructure: <a href="https://docs.ssccs.org/works/cern/root-ttree">coordinate indexing</a> replaces hash
-          lookup in large datasets, collapsing read-request bottlenecks from
-          hours to seconds.
+          lookup in large datasets, <a href="https://docs.ssccs.org/works/cern/root-ttree/#measured-results">collapsing read-request bottlenecks</a> from hours to seconds.
         </li>
       </ul>
       <p></p>
@@ -244,7 +243,7 @@ export default function Home() {
         </li>
         <li>
           <a href="https://docs.ssccs.org/projects/syntagma">synTagma</a>:
-          spatial coordinate space computing; identity without hashing, the
+          spatial coordinate space computing from software to <a href="https://docs.ssccs.org/projects/syntagma/hardware">hardware</a>; identity without hashing, the
           coordinate is the address.
         </li>
         <li>
