@@ -183,10 +183,7 @@ export default function Home() {
       <h2>Now</h2>
       <ul>
         <li>
-          The core compiler and runtime are under{" "}
-          <a href="https://github.com/ssccsorg/ssccs/graphs/commit-activity">
-            active development.
-          </a>{" "}
+          The core compiler and runtime are under active development.{" "}
           Current focus is on Field composition algebra: making constraint sets
           composable while preserving observation determinism, with parallel
           work on{" "}
