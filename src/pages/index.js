@@ -324,7 +324,7 @@ export default function Home() {
               Whitepaper:{" "}
               <a href={appendDateQuery("https://ssccs.org/wp")}>PDF</a> /{" "}
               <a href={appendDateQuery("https://ssccs.org/wpw")}>HTML</a>{" "}
-              Licensed under <i>CC BY-NC-ND 4.0</i>. DOI:{" "}
+              Licensed under <i>CC BY-NC 4.0</i>. DOI:{" "}
               <a
                 href={appendDateQuery(
                   "https://doi.org/10.5281/zenodo.18759106",
