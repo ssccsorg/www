@@ -274,16 +274,22 @@ export default function Home() {
       </p>
       <ul>
         <li>
+          <a href="https://docs.ssccs.org/works/vllm/">
+            vLLM serving engine
+          </a>
+          : contributing to the industry‑standard LLM inference engine through our structural computing stack.
+        </li>
+        <li>
           <a href="https://docs.ssccs.org/works/cern/">
-            Contribution to CERN science ecosystem
+            CERN science software ecosystem
           </a>
           : supporting the pursuit of extreme computational challenges in High-Energy Physics (HEP) through our software stack.
         </li>
         <li>
           <a href="https://docs.ssccs.org/works/openhw_integration">
-            Eclipse Foundation CORE-V platforms
+            Eclipse Foundation CORE-V ecosystem
           </a>
-          : phased collaboration to validate our core primitives and materialization.
+          : advancing open‑source RISC‑V verification and validation through our exhaustive verification primitives.
         </li>
       </ul>
       <p>
