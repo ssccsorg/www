@@ -274,7 +274,7 @@ export default function Home() {
       </p>
       <ul>
         <li>
-          LLM serving engine ecosystem
+          AI infrastructure ecosystem: <a href="https://docs.ssccs.org/works/llms/">LLM serving engines</a>
           <ul>
             <li>
               <a href="https://docs.ssccs.org/works/llms/vllm/">
