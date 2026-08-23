@@ -274,16 +274,21 @@ export default function Home() {
       </p>
       <ul>
         <li>
-          <a href="https://docs.ssccs.org/works/llms/vllm/">
-            vLLM serving engine
-          </a>
-          : contributing to the industry‑standard LLM inference engine through our structural computing stack.
-        </li>
-        <li>
-          <a href="https://docs.ssccs.org/works/llms/llamacpp/">
-            llama.cpp on-device inference
-          </a>
-          : extending our structural computing stack to personal and edge devices, the deployment class of the Rem device.
+          LLM serving engine ecosystem
+          <ul>
+            <li>
+              <a href="https://docs.ssccs.org/works/llms/vllm/">
+                vLLM
+              </a>
+              : contributing to the industry‑standard LLM inference engine through our structural computing stack.
+            </li>
+            <li>
+              <a href="https://docs.ssccs.org/works/llms/llamacpp/">
+                llama.cpp
+              </a>
+              : eplacing KV cache indirection with coordinate arithmetic — O(1) access without indexing in CPU‑first inference.
+            </li>
+          </ul>
         </li>
         <li>
           <a href="https://docs.ssccs.org/works/cern/">
