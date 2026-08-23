@@ -274,10 +274,16 @@ export default function Home() {
       </p>
       <ul>
         <li>
-          <a href="https://docs.ssccs.org/works/vllm/">
+          <a href="https://docs.ssccs.org/works/llms/vllm/">
             vLLM serving engine
           </a>
           : contributing to the industry‑standard LLM inference engine through our structural computing stack.
+        </li>
+        <li>
+          <a href="https://docs.ssccs.org/works/llms/llamacpp/">
+            llama.cpp on-device inference
+          </a>
+          : extending our structural computing stack to personal and edge devices, the deployment class of the Rem device.
         </li>
         <li>
           <a href="https://docs.ssccs.org/works/cern/">
