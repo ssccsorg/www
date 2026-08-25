@@ -297,11 +297,14 @@ export default function Home() {
           : supporting the pursuit of extreme computational challenges in High-Energy Physics (HEP) through our software stack.
         </li>
         <li>
-          <a href="https://docs.ssccs.org/works/duckdb/">
-            DuckDB
-          </a>
-          : replacing full-table scans for multi-dimensional point and range
-          queries with coordinate-lattice subspace addressing.
+          Databases: Multi-dimensional query bottleneck
+          <ul>
+            <a href="https://docs.ssccs.org/works/duckdb/">
+              DuckDB
+            </a>
+            : replacing full-table scans for multi-dimensional point and range
+            queries with <a href="https://docs.ssccs.org/works/duckdb/lattice/">coordinate-lattice</a> subspace addressing.
+          </ul>
         </li>
         <li>
           <a href="https://docs.ssccs.org/works/openhw_integration">
