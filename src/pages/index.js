@@ -263,7 +263,7 @@ export default function Home() {
         </li>
       </ul>
       <p></p>
-      <h2>Collaboration</h2>
+      <h2>Engagements</h2>
       <p>
         We welcome partnerships from academia, industry, and public institutions
         worldwide — any nation with aligned public-interest programs. Domain
