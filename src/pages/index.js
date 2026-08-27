@@ -294,7 +294,7 @@ export default function Home() {
           <a href="https://docs.ssccs.org/works/cern/">
             CERN science software ecosystem
           </a>
-          : supporting the pursuit of extreme computational challenges in High-Energy Physics (HEP) through our software stack.
+          : supporting the pursuit of extreme computational challenges in High-Energy Physics (HEP) through <a href="https://docs.ssccs.org/works/cern/root-ttree/">our software stack</a>.
         </li>
         <li>
           Databases: Multi-dimensional query bottleneck
