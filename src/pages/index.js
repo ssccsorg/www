@@ -233,15 +233,12 @@ export default function Home() {
           and current-language PoCs before a reference compiler and runtime
           take shape.
         </li>
-        <li>
-          <a href="https://docs.ssccs.org/projects/nexus">neXus</a>: swarm
-          computing runtime with n-dimensional state space storage and
-          contract-governed agentic coordination over an immutable Fact space.
+        <li>          
+          <a href="https://docs.ssccs.org/projects/nexus">neXus</a>: a homeomorphic runtime fabric unifying swarm agents and spatial storage through contract-governed protocol over an immutable problem-knowledge-solution space.
         </li>
         <li>
           <a href="https://docs.ssccs.org/projects/syntagma">synTagma</a>:
-          spatial coordinate space computing from software to <a href="https://docs.ssccs.org/projects/syntagma/hardware">hardware</a>; identity without hashing, the
-          coordinate is the address.
+          spatial coordinate space computing from software to <a href="https://docs.ssccs.org/projects/syntagma/hardware">hardware</a>; identity without hashing, the coordinate is the address.
         </li>
         <li>
           <a href="https://docs.ssccs.org/projects/chton">Chton</a>:
