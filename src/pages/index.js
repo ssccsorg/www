@@ -255,6 +255,15 @@ export default function Home() {
           orchestration runtime across a shared knowledge space.
         </li>
         <li>
+          <a href="https://docs.ssccs.org/projects/telos">Telos</a>:
+          general agent execution layer: a native headless agent, deployable
+          as a fleet.
+        </li>
+        <li>
+          <a href="https://docs.ssccs.org/projects/kinetics">kineTics</a>:
+          supervises every executor type under one coordinate-based contract.
+        </li>
+        <li>
           <a href="https://docs.ssccs.org/projects/sdbs">SDBS</a>:
           single-path artifact compiler for reproducible, auditable knowledge base.
         </li>
