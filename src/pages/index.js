@@ -238,7 +238,7 @@ export default function Home() {
         </li>
         <li>
           <a href="https://docs.ssccs.org/projects/syntagma">synTagma</a>:
-          spatial coordinate space computing from software to <a href="https://docs.ssccs.org/projects/syntagma/hardware">hardware</a>; identity without hashing, the coordinate is the address.
+          spatial coordinate space computing from software to <a href="https://docs.ssccs.org/projects/syntagma/tagma/hardware">hardware</a>; identity without hashing, the coordinate is the address.
         </li>
         <li>
           <a href="https://docs.ssccs.org/projects/chton">Chton</a>:
