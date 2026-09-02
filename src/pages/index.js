@@ -255,6 +255,7 @@ export default function Home() {
           orchestration runtime across a shared knowledge space.
         </li>
         <li>
+          
           <a href="https://docs.ssccs.org/projects/telos">Telos</a>:
           general agent execution layer: a native headless agent, deployable
           as a fleet.
@@ -329,7 +330,7 @@ export default function Home() {
       <p></p>
       <h2>Sponsorship</h2>
       <p>
-        SSCCS is an independent, non-profit initiative committed to public-good
+        SSCCS is an independent, open-source computing infrastructure committed to public-good
         infrastructure. The official sponsorship charter on <a href="https://github.com/sponsors/ssccsorg">GitHub Sponsors</a> describes the funded work: open-source releases, free documentation,
         and research into energy-efficient, verifiable computing.
       </p>
