@@ -32,6 +32,12 @@ export default function Home() {
         <span style={{ fontWeight: "bold" }}>·</span>
 
         <span className={styles.group}>
+          <a href={"https://docs.ssccs.org/works/"}>Works</a>
+        </span>
+        
+        <span style={{ fontWeight: "bold" }}>·</span>
+
+        <span className={styles.group}>
           <a href={"https://github.com/ssccsorg"}>Code</a>
         </span>
 
