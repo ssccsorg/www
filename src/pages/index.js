@@ -85,7 +85,7 @@ export default function Home() {
         <a href="https://docs.ssccs.org/direction">
           operational direction
         </a>{" "}
-        and <a href="https://docs.ssccs.org/philosophy/">philosophy</a>. The stack spans the full pipeline, from formal specifications, through a software compiler toolchain, to an open hardware architecture. The model is actively materalizaing on the current paradigm and silicon through <a href="https://docs.ssccs.org/projects/#recursive-synergy-of-the-shared-substrate">domain</a> instantiations including <a href="http://docs.ssccs.org/projects/nexus">neXus</a> and <a href="http://docs.ssccs.org/projects/syntagma">synTagma</a>.
+        and <a href="https://docs.ssccs.org/philosophy/">philosophy</a>. The stack spans the full pipeline, from formal specifications, through a software compiler toolchain, to an open hardware architecture. The model is actively materializing on the engineering frontier of the current silicon paradigm through <a href="https://docs.ssccs.org/projects/#recursive-synergy-of-the-shared-substrate">domain instantiations</a> built on our three core infrastructure pillars: <a href="http://docs.ssccs.org/projects/syntagma">synTagma</a>, <a href="http://docs.ssccs.org/projects/nexus">neXus</a>, and <a href="http://docs.ssccs.org/projects/kinetics">kineTics</a>.
       </p>
 
       <div
