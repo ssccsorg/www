@@ -58,7 +58,7 @@ export default function Home() {
       </nav>
       
       <p
-        style={{ margin: "46px 0"}}
+        style={{ margin: "38px 0"}}
       />
 
       <h1 align="center" className={styles.titleRow}>
@@ -70,22 +70,12 @@ export default function Home() {
         Schema–Segment Composition Computing System
       </h1>
 
-      <hr
-        style={{ margin: "30px 0", border: "0", borderTop: "1px solid #000" }}
+      <p
+        style={{ margin: "38px 0"}}
       />
-      
-      <p>
-        <a href="https://docs.ssccs.org/axioms/ssccs.html">SSCCS</a> (Schema–Segment Composition Computing System) is an open‑source computing systems initiative that replaces the instruction‑centric model with an observation‑driven architecture: computation is the collapse of structured potential across a coordinate space of immutable Segments and dynamic Fields. Parallelism and verifiability emerge from the structure itself, with near‑linear scalability and energy efficiency as consequences; state is the result of projection, and time is one coordinate among many.
-      </p>
 
       <p>
-        SSCCS is built by the{" "}
-        <a href="https://docs.ssccs.org/axioms/">SSCCS Foundation</a>{" "}
-        under an open‑core model, guided by its{" "}
-        <a href="https://docs.ssccs.org/direction">
-          operational direction
-        </a>{" "}
-        and <a href="https://docs.ssccs.org/philosophy/">philosophy</a>. The stack spans the full pipeline, from formal specifications, through a software compiler toolchain, to an open hardware architecture. The model is actively materializing on the engineering frontier of the current silicon paradigm through <a href="https://docs.ssccs.org/projects/#recursive-synergy-of-the-shared-substrate">domain instantiations</a> built on our three core infrastructure pillars: <a href="http://docs.ssccs.org/projects/syntagma">synTagma</a>, <a href="http://docs.ssccs.org/projects/nexus">neXus</a>, and <a href="http://docs.ssccs.org/projects/kinetics">kineTics</a>.
+        <a href="https://docs.ssccs.org/axioms/ssccs.html">SSCCS</a> (Schema–Segment Composition Computing System) is an open‑source computing systems initiative that replaces the instruction‑centric model with an <a href="https://docs.ssccs.org/whitepaper/whitepaper#observation-and-projection">observation‑driven architecture</a>: computation is the collapse of structured potential across a coordinate space of immutable <a href="https://docs.ssccs.org/whitepaper/whitepaper#definition-of-primitives">Segments and dynamic Fields</a>. Parallelism and verifiability emerge from the structure itself, with near‑linear scalability and energy efficiency as consequences; state is the result of projection, and time is one coordinate among many.
       </p>
 
       <div
@@ -103,6 +93,16 @@ export default function Home() {
           cast by collapsed possibility.
         </p>
       </div>
+      
+      <p>
+        SSCCS is built by the{" "}
+        <a href="https://docs.ssccs.org/axioms/">SSCCS Foundation</a>{" "}
+        under an open‑core model, guided by its{" "}
+        <a href="https://docs.ssccs.org/direction">
+          operational direction
+        </a>{" "}
+        and <a href="https://docs.ssccs.org/philosophy/">philosophy</a>. The stack spans the full pipeline, from formal specifications, through a software compiler toolchain, to an open hardware architecture. The model is actively materializing on the engineering frontier of the current silicon paradigm through <a href="https://docs.ssccs.org/projects/#recursive-synergy-of-the-shared-substrate">domain instantiations</a> built on our three core infrastructure pillars: <a href="http://docs.ssccs.org/projects/syntagma">synTagma</a>, <a href="http://docs.ssccs.org/projects/nexus">neXus</a>, and <a href="http://docs.ssccs.org/projects/kinetics">kineTics</a>.
+      </p>
 
       <p></p>
       <h2>Stack</h2>
