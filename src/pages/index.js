@@ -75,7 +75,7 @@ export default function Home() {
       />
 
       <p>
-        <a href="https://docs.ssccs.org/axioms/ssccs.html">SSCCS</a> (Schema–Segment Composition Computing System) is an open‑source computing systems initiative that replaces the instruction‑centric model with an <a href="https://docs.ssccs.org/whitepaper/whitepaper#observation-and-projection">observation‑driven architecture</a>: computation is the collapse of structured potential across a coordinate space of immutable <a href="https://docs.ssccs.org/whitepaper/whitepaper#definition-of-primitives">Segments and dynamic Fields</a>. Parallelism and verifiability emerge from the structure itself, with near‑linear scalability and energy efficiency as consequences; state is the result of projection, and time is one coordinate among many.
+        <a href="https://docs.ssccs.org/axioms/ssccs.html">SSCCS</a> (Schema–Segment Composition Computing System) is an open‑source computing systems initiative that replaces the instruction‑centric model with an <a href="https://docs.ssccs.org/whitepaper/whitepaper#observation-and-projection">observation‑driven</a> architecture: computation is the collapse of structured potential across a coordinate space of immutable <a href="https://docs.ssccs.org/whitepaper/whitepaper#definition-of-primitives">Segments, Scheme and dynamic Fields</a> composition. Parallelism and verifiability emerge from the structure itself, with near‑linear scalability and energy efficiency as consequences; state is the result of projection, and time is one coordinate among many.
       </p>
 
       <div
