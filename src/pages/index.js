@@ -240,7 +240,7 @@ export default function Home() {
           take shape.
         </li>
         <li>          
-          <a href="https://docs.ssccs.org/projects/nexus">neXus</a>: a homeomorphic runtime fabric unifying swarm agents and spatial storage through contract-governed protocol over an immutable problem-knowledge-solution space.
+          <a href="https://docs.ssccs.org/projects/nexus">neXus</a>: homeomorphic runtime fabric unifying swarm agents and spatial storage.
         </li>
         <li>
           <a href="https://docs.ssccs.org/projects/syntagma">synTagma</a>:
@@ -257,14 +257,12 @@ export default function Home() {
           random testing.
         </li>
         <li>
-          <a href="https://docs.ssccs.org/projects/actus">Actus</a>: agent
-          orchestration runtime across a shared knowledge space.
+          <a href="https://docs.ssccs.org/projects/actus">Actus</a>: spatial execution runtime for agents and system actions at scale.
         </li>
         <li>
           
           <a href="https://docs.ssccs.org/projects/telos">Telos</a>:
-          general agent execution layer: a native headless agent, deployable
-          as a fleet.
+          general agent runs as a fleet of peers with coordinate teleport.
         </li>
         <li>
           <a href="https://docs.ssccs.org/projects/kinetics">kineTics</a>:
