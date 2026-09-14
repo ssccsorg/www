@@ -240,7 +240,7 @@ export default function Home() {
           take shape.
         </li>
         <li>          
-          <a href="https://docs.ssccs.org/projects/nexus">neXus</a>: homeomorphic runtime fabric unifying swarm agents and spatial storage.
+          <a href="https://docs.ssccs.org/projects/nexus">neXus</a>: isomorphic runtime fabric unifying swarm agents and spatial storage.
         </li>
         <li>
           <a href="https://docs.ssccs.org/projects/syntagma">synTagma</a>:
