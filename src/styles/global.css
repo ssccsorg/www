@@ -35,7 +35,7 @@ body {
   background: var(--bg);
   color: var(--fg);
   font-family: var(--text);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.6;
   /* The opening scene is wider than the window on purpose. Clipping the axis
      rather than the element keeps the vertical bleed, and no scrollbar appears. */
@@ -124,7 +124,7 @@ samp {
    term, so no label wraps. */
 .defs {
   display: grid;
-  grid-template-columns: minmax(0, 36%) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 38%) minmax(0, 1fr);
   margin: 0 0 0.8rem;
   border-top: 1px solid var(--line-soft);
 }
@@ -140,12 +140,12 @@ samp {
    than a grid gap, so the rule under a row runs the full width unbroken. */
 .defs dt {
   font-family: var(--mono);
-  font-size: 12.5px;
+  font-size: 13.5px;
   padding-right: 24px;
 }
 
 .defs dd {
-  font-size: 14.5px;
+  font-size: 15.5px;
   color: var(--fg-2);
 }
 
