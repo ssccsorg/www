@@ -11,3 +11,10 @@ const { id, title } = Astro.props;
   <h2>{title}</h2>
   <slot />
 </section>
+
+<style>
+  /* Sections are headings in one flow rather than panels. */
+  .section {
+    margin-top: 28px;
+  }
+</style>

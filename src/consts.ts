@@ -43,10 +43,10 @@ export const elsewhere = [
 
 export const nav = [
   { id: 'model', label: 'The model' },
-  { id: 'stack', label: 'Stack' },
-  { id: 'why', label: 'Why' },
-  { id: 'where', label: 'Where' },
-  { id: 'now', label: 'Now' },
+  { id: 'architecture', label: 'Architecture' },
+  { id: 'principles', label: 'Design principles' },
+  { id: 'domains', label: 'Application domains' },
+  { id: 'work', label: 'Current work' },
   { id: 'projects', label: 'Projects' },
   { id: 'engagements', label: 'Engagements' },
   { id: 'sponsorship', label: 'Sponsorship' },
@@ -80,42 +80,60 @@ export const primitives = [
   },
 ] as const;
 
-export const reasons = [
-  'Data movement dominates energy costs in modern computing. SSCCS keeps the structure stationary while projections emerge.',
-  'Parallelism is inherent to the structure. Independent sub-graphs within a Scheme are observed concurrently, with no locks and no synchronisation.',
-  'Structural descriptions are compiled into the hardware substrate at build time. There is no runtime interpretation; the structural document is embedded into execution itself.',
-  'Security and auditability are geometric consequences rather than add-on features. Immutable Segments carry cryptographic identity by design, and the manifold provides isolation, so every observation is a deterministic, traceable collapse from blueprint to result.',
-  'Digital sovereignty is a design property. Policy sandboxes are enforced at the binary level, so organisations and individuals keep control of their computational environments without proprietary lock-in.',
+// The properties the model is designed around, stated as claims that the
+// implementation is expected to bear out.
+export const principles = [
+  {
+    name: 'Energy and data movement',
+    body: 'Data movement dominates the energy cost of modern computing, and most of it exists to carry operands to a fixed execution point. The model keeps the structure stationary and lets projections emerge from it, so computation is not paid for twice, once in arithmetic and once in transport.',
+  },
+  {
+    name: 'Parallelism',
+    body: 'Parallelism is inherent to the structure rather than added to it. Independent sub-graphs within a Scheme are observed concurrently, and no locks or synchronisation are needed because there is no shared mutable state for them to guard.',
+  },
+  {
+    name: 'Compilation',
+    body: 'Structural descriptions are compiled into the hardware substrate at build time. There is no runtime interpretation: the structural document is embedded into execution itself, and the artefact and the specification remain the same object.',
+  },
+  {
+    name: 'Security and auditability',
+    body: 'Security and auditability are geometric consequences rather than add-on features. Immutable Segments carry cryptographic identity by design, the manifold provides isolation between independent sub-graphs, and every observation is a deterministic, traceable collapse from blueprint to result.',
+  },
+  {
+    name: 'Digital sovereignty',
+    body: 'Digital sovereignty is a design property. Policy sandboxes are enforced at the binary level, so an organisation or an individual keeps control of its computational environment, free of proprietary lock-in.',
+  },
 ] as const;
 
-export const workloads = [
+// The domains where the constraint the model addresses is the binding one.
+export const domains: ReadonlyArray<{ name: string; href?: string; body: string }> = [
   {
     name: 'Space systems',
     href: 'https://docs.ssccs.org/research/riscv_space.html',
-    body: 'radiation tolerance from structural reproducibility: after an upset, the system re-observes the same immutable Scheme and returns to the same configuration, without redundant hardware.',
+    body: 'Radiation tolerance follows from structural reproducibility. After an upset, the system re-observes the same immutable Scheme and returns to the same configuration, without redundant hardware.',
   },
   {
     name: 'Embedded and edge systems',
-    body: 'a no-allocator coordinate space fits OS-less microcontrollers and radiation-tolerant hardware, replacing hash units with combinational decoders.',
+    body: 'A no-allocator coordinate space fits OS-less microcontrollers and radiation-tolerant hardware, and replaces hash units with combinational decoders.',
   },
   {
     name: 'AI inference',
-    body: 'model weights stay in place and computation moves to them, which attacks the memory-bandwidth bottleneck behind inference latency and energy cost.',
+    body: 'Model weights stay in place and computation moves to them, which addresses the memory-bandwidth bottleneck behind inference latency and energy cost.',
   },
   {
     name: 'Swarm robotics',
-    body: 'agents observe a shared blueprint locally, so collective behaviour emerges without coordination chatter.',
+    body: 'Agents observe a shared blueprint locally, so collective behaviour emerges without coordination chatter.',
   },
   {
     name: 'Climate and scientific computing',
-    body: 'dependency grids become adjacency relations compiled into memory, so each timestep is a parallel observation rather than data movement.',
+    body: 'Dependency grids become adjacency relations compiled into memory, so each timestep is a parallel observation rather than a data movement.',
   },
   {
     name: 'Scientific data infrastructure',
     href: 'https://docs.ssccs.org/works/cern/root-ttree/',
-    body: 'coordinate indexing replaces hash lookup in large datasets, collapsing read-request bottlenecks from hours to seconds.',
+    body: 'Coordinate indexing replaces hash lookup in large datasets, collapsing read-request bottlenecks from hours to seconds.',
   },
-] as const;
+];
 
 export const projects = [
   {

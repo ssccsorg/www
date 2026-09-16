@@ -1,0 +1,9 @@
+# Astro writes everything under /_astro with a content hash in the file name, so
+# those files can be cached indefinitely. The HTML that names them is revalidated
+# on every request, which is what makes a new deploy visible immediately.
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*
+  Cache-Control: public, max-age=0, must-revalidate

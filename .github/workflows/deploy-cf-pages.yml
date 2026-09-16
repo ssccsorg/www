@@ -51,6 +51,9 @@ jobs:
         if: steps.cache-npm.outputs.cache-hit != 'true'
         run: npm ci
 
+      - name: Check the site
+        run: npm run check
+
       - name: Build Astro site
         run: npm run build
 

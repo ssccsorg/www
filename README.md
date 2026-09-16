@@ -11,6 +11,7 @@ npm install
 npm run dev      # development server
 npm run build    # static output in dist/
 npm run preview  # serve the built output
+npm run check    # astro check: types and diagnostics
 ```
 
 ## Layout
@@ -24,13 +25,20 @@ npm run preview  # serve the built output
 | `src/components/Monument.astro` | the interactive scene and the code that drives it |
 | `src/lib/monument.js` | the scene itself: the primitives of the model, as plotly traces |
 | `src/components/Section.astro` | the shared section frame: an anchor, a heading, a slot |
-| `src/layouts/Base.astro` | the document shell and the metadata |
-| `src/styles/global.css` | the type scale, the column, and the shared elements |
-| `src/config.ts` | the name, the description, the sections, and every link |
-| `public/` | the mark, the favicon, the fonts, the key, and the partner logos |
+| `src/layouts/Base.astro` | the document shell: the three landmarks, the fonts, the metadata, and the skip link |
+| `src/styles/global.css` | the tokens, the reset, the base type, and the two shared primitives: the column and the definition list |
+| `src/consts.ts` | the name, the description, the sections, and every link |
+| `src/types/` | the one ambient declaration the untyped plotly bundle needs |
+| `public/` | the mark, the favicon, the key, the headers, and the partner logos |
 
-Component styles are scoped by Astro. Anything two components share belongs in
-`global.css` instead.
+Component styles are scoped by Astro, so a rule lives in the `<style>` block of the
+component that renders the element. The two exceptions are the elements more than one
+component renders (the column and the definition list), which are in `global.css`, and
+the note `Monument.astro` creates from its script, which no scope attribute reaches and
+is therefore written as `:global(.monument__note)`.
+
+The shell is `<header>`, `<main id="main" tabindex="-1">`, and `<footer>`. The skip
+link targets the column, and `tabindex` is what moves the reading position with it.
 
 ## Design
 
@@ -38,12 +46,23 @@ The measurements are the ones the previous page was built with, because the
 change is the framework rather than the design:
 
 - one column, `min(1000px, max(800px, 60vw))`, 30px of padding, on white
-- 16px body text at line-height 1.6, a 1.65rem title, 1.5rem section headings
-- a centred navigation line at 0.9rem, a centred title with a 44px round mark
+- 15px body text at line-height 1.6, a 1.5rem title, 1.25rem section headings
+- a centred navigation line at 0.85rem, a centred title with a 44px round mark
 - black underlined links, one rule before the footer, a 0.85rem footer
 
 Two things were added, both from the model itself: the six primitives as a
 definition list in `The model`, and the machine-readable metadata in the head.
+The opening block carries the scene behind it, anchored right and bleeding past
+the window, at low opacity.
+
+## Fonts
+
+`astro.config.mjs` declares both families to Astro's Fonts API, which fetches the
+woff2 files at build time, copies them into the output, and writes the `@font-face`
+rules and the metric-adjusted fallbacks. Only the weights the page sets are
+fetched: Archivo at 400 and 600, IBM Plex Mono at 400 and 500. `Base.astro` renders
+the `<Font>` components, preloading the first one. The stylesheet reads the two
+generated stacks through `var(--font-archivo)` and `var(--font-mono)`.
 
 ## The figure
 
@@ -61,8 +80,13 @@ The site is on Cloudflare Pages as `ssccs-www`, served at `https://ssccs.org`.
 The documentation site is a separate Pages project, `ssccs-docs`, served at
 `https://docs.ssccs.org`.
 
-`.github/workflows/deploy-cf-pages.yml` builds on every pull request and deploys
-on every push to `main`. It needs two repository secrets on `ssccsorg/ssccs-www`:
+`@astrojs/sitemap` writes `sitemap-index.xml` at build time, and `public/_headers`
+sets the cache policy: hashed assets under `/_astro` are immutable, the HTML is
+revalidated on every request.
+
+`.github/workflows/deploy-cf-pages.yml` checks and builds on every pull request,
+and deploys on every push to `main`. It needs two repository secrets on
+`ssccsorg/ssccs-www`:
 
 | Secret | |
 |---|---|

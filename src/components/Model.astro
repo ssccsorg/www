@@ -1,6 +1,6 @@
 ---
 import Section from './Section.astro';
-import { primitives, site } from '../config';
+import { primitives, site } from '../consts';
 ---
 
 <Section id="model" title="The model">
@@ -25,3 +25,10 @@ import { primitives, site } from '../config';
     formally, and the <a href={site.whitepaperHtml}>whitepaper</a> derives the stack from them.
   </p>
 </Section>
+
+<style>
+  .note {
+    font-size: 14px;
+    color: var(--fg-3);
+  }
+</style>

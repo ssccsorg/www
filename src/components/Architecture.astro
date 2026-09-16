@@ -1,0 +1,44 @@
+---
+import Section from './Section.astro';
+import { site } from '../consts';
+---
+
+<Section id="architecture" title="Architecture">
+  <p>
+    SSCCS is developed as a software-first system: a compiler toolchain, a runtime, and an open
+    binary format, with the hardware architecture specified alongside them and derived from the same
+    structure. The layers below are the ones that carry the model from a specification to a running
+    substrate.
+  </p>
+
+  <dl class="defs">
+    <dt>Lowering chain</dt>
+    <dd>
+      A structural description is compiled through a layered lowering chain onto hardware-specific
+      backends. Each layer refines the description while the invariants of the model are preserved,
+      and the structural document itself is what reaches execution, embedded rather than interpreted
+      at run time.
+    </dd>
+
+    <dt>Hardware abstraction</dt>
+    <dd>
+      A target-agnostic hardware abstraction layer keeps the ontological core independent of the
+      execution substrate. The same Scheme projects onto a CPU, an FPGA, or a processor-in-memory
+      architecture without rewrites.
+    </dd>
+
+    <dt>Binary format</dt>
+    <dd>
+      The compiled artefact is an open binary format. The structural description and the executable
+      are one document, so a deployment carries its own specification.
+    </dd>
+
+    <dt>Reference implementation</dt>
+    <dd>
+      A Rust reference implementation validates all core primitives under continuous integration.
+      The same primitives are proven in parallel across RTL, RISC-V assembly, and current-language
+      work in the <a href={site.poc}>proof-of-concept tree</a>, before the reference compiler and
+      runtime take their final shape.
+    </dd>
+  </dl>
+</Section>

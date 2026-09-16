@@ -1,0 +1,23 @@
+---
+import Section from './Section.astro';
+import { principles } from '../consts';
+---
+
+<Section id="principles" title="Design principles">
+  <p>
+    The model is designed around five properties. Each of them is a consequence of the geometry, and
+    each of them is a claim the implementation is expected to bear out rather than a feature it adds
+    later.
+  </p>
+
+  <dl class="defs">
+    {
+      principles.map((principle) => (
+        <>
+          <dt>{principle.name}</dt>
+          <dd>{principle.body}</dd>
+        </>
+      ))
+    }
+  </dl>
+</Section>

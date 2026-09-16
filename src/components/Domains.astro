@@ -1,0 +1,32 @@
+---
+import Section from './Section.astro';
+import { domains } from '../consts';
+---
+
+<Section id="domains" title="Application domains">
+  <p>
+    The model is a paradigm rather than a single product, so it is developed against the domains
+    where the cost of moving data has stopped being affordable. What each domain contributes in
+    return is a constraint that the primitives have to satisfy in the field, not only in a
+    specification.
+  </p>
+
+  <dl class="defs">
+    {
+      domains.map((domain) => (
+        <>
+          <dt>{domain.name}</dt>
+          <dd>
+            {domain.body}
+            {domain.href && (
+              <>
+                {' '}
+                <a href={domain.href}>Read the note</a>.
+              </>
+            )}
+          </dd>
+        </>
+      ))
+    }
+  </dl>
+</Section>

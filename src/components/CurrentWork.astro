@@ -1,0 +1,55 @@
+---
+import Section from './Section.astro';
+import { site } from '../consts';
+---
+
+<Section id="work" title="Current work">
+  <p>
+    The model is specified and published. The work now is the toolchain that carries it, the
+    validation that tests it against hardware, and the instantiations that put it in the field.
+  </p>
+
+  <dl class="defs">
+    <dt>Field composition algebra</dt>
+    <dd>
+      The current focus of the core team. Constraint sets have to compose while observation
+      determinism is preserved, so that a composed Field can be reasoned about with the same
+      guarantees as its parts.
+    </dd>
+
+    <dt>Compiler pipeline</dt>
+    <dd>
+      The core compiler and runtime are under active development, with work on{' '}
+      <a href="https://docs.ssccs.org/research/rust_baremetal.html">compiler pipeline hardening</a>{' '}
+      and on <a href="https://docs.ssccs.org/research/riscv.html">hardware mapping</a>, including
+      the decode path that replaces a hash unit with combinational logic.
+    </dd>
+
+    <dt>neXus</dt>
+    <dd>
+      A domain instantiation of the model, in development at{' '}
+      <a href="https://docs.ssccs.org/projects/nexus">neXus</a>: contract-governed, agentic
+      coordination that ingests and connects heterogeneous knowledge into a unified, queryable
+      structure.
+    </dd>
+
+    <dt>Hardware validation</dt>
+    <dd>
+      Phased prototyping from software emulation to FPGA deployment, with a parallel track for
+      radiation-tolerant platforms. See{' '}
+      <a href="https://docs.ssccs.org/works/openhw_integration.html">hardware validation</a>.
+    </dd>
+
+    <dt>Strategic partnerships</dt>
+    <dd>
+      Work with infrastructure leaders to extend the reach of agentic research environments, and a
+      standing invitation to institutions that want to validate the model against their own
+      workloads.
+    </dd>
+  </dl>
+
+  <p>
+    The <a href={site.works}>work notes</a> carry the measurements behind each of these as they are
+    taken.
+  </p>
+</Section>

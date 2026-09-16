@@ -60,7 +60,9 @@ const { backdrop = false } = Astro.props;
     height: 100%;
   }
 
-  .monument__note {
+  /* The stage is replaced by this note when the browser cannot draw the scene,
+     so the element is created by the script and carries no scope attribute. */
+  :global(.monument__note) {
     display: flex;
     height: 100%;
     align-items: center;
@@ -86,11 +88,13 @@ const { backdrop = false } = Astro.props;
 
   const backdrop = !!(figure && figure.classList.contains('monument--backdrop'));
 
-  let plot = null;
-  let plotly = null;
-  let orbit = null;
+  // Plotly's gl3d bundle ships no types, so the graph handle and the library are
+  // annotated with the shapes this file actually uses.
+  let plot: any = null;
+  let plotly: any = null;
+  let orbit: any = null;
 
-  function note(text) {
+  function note(text: string) {
     if (!stage) {
       return;
     }
@@ -103,7 +107,8 @@ const { backdrop = false } = Astro.props;
   function webglAvailable() {
     try {
       const canvas = document.createElement('canvas');
-      const context = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      const context = (canvas.getContext('webgl') ||
+        canvas.getContext('experimental-webgl')) as WebGLRenderingContext | null;
       if (context) {
         const lose = context.getExtension('WEBGL_lose_context');
         if (lose) {
@@ -123,7 +128,7 @@ const { backdrop = false } = Astro.props;
     if (!backdrop) {
       return { ...base, dragmode: 'turntable' };
     }
-    const untitled = (axis) => ({ ...axis, title: { text: '' } });
+    const untitled = (axis: Record<string, unknown>) => ({ ...axis, title: { text: '' } });
     return {
       ...base,
       dragmode: 'turntable',
