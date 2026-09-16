@@ -1,0 +1,231 @@
+---
+// The scene the page opens on, drawn from the model itself. Plotly's gl3d bundle
+// is fetched only when the browser has WebGL and only when the scene is about to
+// be seen, because it is by far the largest asset on the site.
+//
+// In backdrop mode the scene sits behind the opening block, bleeding past it on
+// every side, and it is desaturated so the page stays in one ink.
+
+interface Props {
+  backdrop?: boolean;
+}
+
+const { backdrop = false } = Astro.props;
+---
+
+<div class:list={['monument', backdrop && 'monument--backdrop']} data-monument>
+  <div
+    class="monument__stage"
+    data-stage
+    role="img"
+    aria-label="The primitives of the model in one scene: Segments on the coordinate space, a Scheme binding them, a Field raising a constraint potential, Observations collapsing into projections, and Data as the shadow they cast."
+  >
+    <noscript>
+      <p class="monument__note">
+        The scene is drawn in the browser and needs WebGL. The primitives it shows are defined in
+        the Model section.
+      </p>
+    </noscript>
+  </div>
+</div>
+
+<style>
+  .monument {
+    margin: 0;
+  }
+
+  .monument__stage {
+    position: relative;
+    width: 100%;
+    height: clamp(420px, 55vh, 640px);
+  }
+
+  /* The scene stands behind the opening block, anchored to the right and larger
+     than the viewport, so it is cut by the right edge rather than centred behind
+     the text. It fades out towards the left and downwards, which keeps the
+     reading column clear while the model is already present. */
+  .monument--backdrop {
+    position: absolute;
+    top: -26vh;
+    right: -18%;
+    width: min(1300px, 96vw);
+    height: 96vh;    
+    z-index: 0;
+    pointer-events: none;
+    -webkit-mask-image: radial-gradient(96% 84% at 66% 46%, #000 0%, #000 32%, rgba(0, 0, 0, 0) 76%);
+    mask-image: radial-gradient(96% 84% at 66% 46%, #000 0%, #000 32%, rgba(0, 0, 0, 0) 76%);
+  }
+
+  .monument--backdrop .monument__stage {
+    height: 100%;
+  }
+
+  .monument__note {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0 24px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--fg-3);
+  }
+</style>
+
+<script>
+  import { MONUMENT_SCENE } from '../lib/monument';
+
+  const UNAVAILABLE =
+    'The interactive scene needs WebGL, which this browser did not provide. The same primitives are described in the Model section.';
+
+  const figure = document.querySelector('[data-monument]');
+  const stage = figure && figure.querySelector('[data-stage]');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const wide = 720;
+
+  const backdrop = !!(figure && figure.classList.contains('monument--backdrop'));
+
+  let plot = null;
+  let plotly = null;
+  let orbit = null;
+
+  function note(text) {
+    if (!stage) {
+      return;
+    }
+    const paragraph = document.createElement('p');
+    paragraph.className = 'monument__note';
+    paragraph.textContent = text;
+    stage.replaceChildren(paragraph);
+  }
+
+  function webglAvailable() {
+    try {
+      const canvas = document.createElement('canvas');
+      const context = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+      if (context) {
+        const lose = context.getExtension('WEBGL_lose_context');
+        if (lose) {
+          lose.loseContext();
+        }
+      }
+      return !!context;
+    } catch {
+      return false;
+    }
+  }
+
+  // The backdrop carries the same drawing as the figure, with the axis titles and
+  // the legend left out so nothing competes with the reading column.
+  function scene() {
+    const base = MONUMENT_SCENE.layout.scene;
+    if (!backdrop) {
+      return { ...base, dragmode: 'turntable' };
+    }
+    const untitled = (axis) => ({ ...axis, title: { text: '' } });
+    return {
+      ...base,
+      dragmode: 'turntable',
+      xaxis: untitled(base.xaxis),
+      yaxis: untitled(base.yaxis),
+      zaxis: untitled(base.zaxis),
+    };
+  }
+
+  // The orbit moves the camera eye only, so the centre stays where it is. The
+  // circle is derived from the camera actually applied to the scene, so the drift
+  // continues from the view on screen rather than snapping to one from the layout.
+  function startOrbit() {
+    if (orbit) {
+      window.clearInterval(orbit);
+    }
+    const applied =
+      (plot._fullLayout && plot._fullLayout.scene && plot._fullLayout.scene.camera) ||
+      MONUMENT_SCENE.layout.scene.camera;
+    const { x, y, z } = applied.eye;
+    const radius = Math.hypot(x, y);
+    let azimuth = Math.atan2(y, x);
+    orbit = window.setInterval(() => {
+      if (!plot._fullLayout) {
+        return;
+      }
+      azimuth += backdrop ? 0.004 : 0.008;
+      plotly.relayout(plot, {
+        'scene.camera.eye': {
+          x: radius * Math.cos(azimuth),
+          y: radius * Math.sin(azimuth),
+          z,
+        },
+      });
+    }, 90);
+  }
+
+  function stopOrbit() {
+    if (orbit) {
+      window.clearInterval(orbit);
+      orbit = null;
+    }
+  }
+
+  async function build() {
+    if (!stage || plot) {
+      return;
+    }
+    if (!webglAvailable()) {
+      note(UNAVAILABLE);
+      return;
+    }
+    const module = await import('plotly.js/dist/plotly-gl3d.min.js');
+    plotly = module.default || module;
+    plot = await plotly.newPlot(
+      stage,
+      MONUMENT_SCENE.data,
+      {
+        ...MONUMENT_SCENE.layout,
+        uirevision: 'ssccs-monument',
+        showlegend: !backdrop && window.innerWidth > wide,
+        scene: scene(),
+      },
+      { displayModeBar: false, responsive: true },
+    );
+    if (!backdrop) {
+      stage.addEventListener('pointerdown', stopOrbit);
+    }
+    if (!reduced.matches) {
+      startOrbit();
+    }
+  }
+
+  if (figure && stage) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) {
+            continue;
+          }
+          observer.disconnect();
+          build().catch(() => note(UNAVAILABLE));
+        }
+      },
+      { rootMargin: '300px' },
+    );
+    observer.observe(figure);
+
+    if (!backdrop) {
+      window.addEventListener('resize', () => {
+        if (plot) {
+          plotly.relayout(plot, { showlegend: window.innerWidth > wide });
+        }
+      });
+    }
+
+    reduced.addEventListener('change', () => {
+      if (reduced.matches) {
+        stopOrbit();
+      } else if (plot) {
+        startOrbit();
+      }
+    });
+  }
+</script>

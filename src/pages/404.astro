@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import { nav, site } from '../config';
+---
+
+<Base
+  title={`Nothing at this address · ${site.name}`}
+  description="The page you asked for is not here."
+>
+  <div class="column">
+    <h1>There is nothing at this address</h1>
+    <p>
+      The page you asked for is not here. The model is on one page, and the documentation is a
+      separate site.
+    </p>
+    <ul>
+      <li><a href="/">The document from the top</a></li>
+      {
+        nav.map((item) => (
+          <li>
+            <a href={`/#${item.id}`}>{item.label}</a>
+          </li>
+        ))
+      }
+      <li>
+        <a href={site.docs}>Documentation</a>
+      </li>
+    </ul>
+  </div>
+</Base>

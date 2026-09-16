@@ -1,0 +1,18 @@
+---
+import Section from './Section.astro';
+import { workloads } from '../config';
+---
+
+<Section id="where" title="Where">
+  <p>Workloads where data movement is the binding constraint:</p>
+  <ul>
+    {
+      workloads.map((workload) => (
+        <li>
+          {workload.href ? <a href={workload.href}>{workload.name}</a> : <>{workload.name}</>}:{' '}
+          {workload.body}
+        </li>
+      ))
+    }
+  </ul>
+</Section>

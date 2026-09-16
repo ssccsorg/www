@@ -1,0 +1,58 @@
+---
+import Monument from './Monument.astro';
+import { site } from '../config';
+---
+
+<div class="intro">
+  <Monument backdrop />
+
+  <div class="column intro__body">
+    <div class="title-row">
+      <img class="title-row__mark" src="/mark.svg" alt="" width="44" height="44" />
+      <h1>{site.fullName}</h1>
+    </div>
+
+    <p>
+      <a href={site.axiomsSsccs}>SSCCS</a> is an open-source computing systems initiative that
+      replaces the sequential, instruction-centric model with a geometric{' '}
+      <a href={`${site.whitepaperHtml}#observation-and-projection`}>observation-driven</a> model:
+      spatial computation is the collapse of structured potential across a coordinate space composed
+      of immutable{' '}
+      <a href={`${site.whitepaperHtml}#definition-of-primitives`}>
+        Segments, Scheme and dynamic Fields
+      </a>{' '}
+      composition. Parallelism and verifiability emerge from the structure itself, with near-linear
+      scalability and energy efficiency as consequences; state is the result of projection, and time
+      is one coordinate among many.
+    </p>
+
+    <p>
+      SSCCS is built by the <a href={site.axioms}>{site.organization}</a> under an open-core model,
+      guided by its <a href={site.direction}>operational direction</a> and{' '}
+      <a href={site.philosophy}>philosophy</a>. The stack spans the full pipeline, from formal
+      specifications, through a software compiler toolchain, to an open hardware architecture. The
+      model is actively materializing on the engineering frontier of the current silicon paradigm
+      through{' '}
+      <a href={`${site.projects}#recursive-synergy-of-the-shared-substrate`}>
+        domain instantiations
+      </a>{' '}
+      built on three core infrastructure pillars:{' '}
+      <a href="https://docs.ssccs.org/projects/syntagma">synTagma</a>,{' '}
+      <a href="https://docs.ssccs.org/projects/nexus">neXus</a>, and{' '}
+      <a href="https://docs.ssccs.org/projects/kinetics">kineTics</a>.
+    </p>
+  </div>
+</div>
+
+<style>
+  /* The scene is held behind the opening block and bleeds past it on every side,
+     so the model is present before the reader reaches the Model section. */
+  .intro {
+    position: relative;
+  }
+
+  .intro__body {
+    position: relative;
+    z-index: 1;
+  }
+</style>

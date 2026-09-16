@@ -4,22 +4,20 @@ on:
   push:
     branches: ["main"]
     paths:
-      - "docs/**"
       - "src/**"
-      - "static/**"
-      - "sidebars.js"
-      - "docusaurus.config.js"
+      - "public/**"
+      - "astro.config.mjs"
+      - "tsconfig.json"
       - "package.json"
       - "package-lock.json"
       - ".github/workflows/deploy-cf-pages.yml"
   pull_request:
     branches: ["main"]
     paths:
-      - "docs/**"
       - "src/**"
-      - "static/**"
-      - "sidebars.js"
-      - "docusaurus.config.js"
+      - "public/**"
+      - "astro.config.mjs"
+      - "tsconfig.json"
       - "package.json"
       - "package-lock.json"
       - ".github/workflows/deploy-cf-pages.yml"
@@ -53,7 +51,7 @@ jobs:
         if: steps.cache-npm.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Build Docusaurus site
+      - name: Build Astro site
         run: npm run build
 
   deploy:
@@ -65,18 +63,18 @@ jobs:
       - name: Compute cache key
         id: cache-key
         run: |
-          find docs src static sidebars.js docusaurus.config.js package.json package-lock.json \
+          find src public astro.config.mjs tsconfig.json package.json package-lock.json \
             -type f | sort | xargs sha256sum | sha256sum | cut -d' ' -f1 > /tmp/cache_key.txt
           echo "key=$(cat /tmp/cache_key.txt)" >> $GITHUB_OUTPUT
 
-      - name: Cache Docusaurus build artifacts
+      - name: Cache Astro build artifacts
         uses: actions/cache@v5
         with:
           path: |
-            .docusaurus
-          key: ${{ runner.os }}-docusaurus-${{ steps.cache-key.outputs.key }}
+            .astro
+          key: ${{ runner.os }}-astro-${{ steps.cache-key.outputs.key }}
           restore-keys: |
-            ${{ runner.os }}-docusaurus-
+            ${{ runner.os }}-astro-
 
       - uses: actions/setup-node@v4
         with:
@@ -93,11 +91,11 @@ jobs:
         if: steps.cache-npm.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Build Docusaurus site
+      - name: Build Astro site
         run: npm run build
 
       - name: Deploy to Cloudflare Pages
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_PAGES_DEPLOY }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
-        run: npx wrangler pages deploy build/ --project-name=ssccs-www
+        run: npx wrangler pages deploy dist/ --project-name=ssccs-www

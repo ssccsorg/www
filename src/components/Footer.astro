@@ -1,0 +1,46 @@
+---
+import { site } from '../config';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer column">
+  <hr />
+
+  <p>
+    © {year} {site.organization}. An open-source computing systems initiative building a computing
+    model, software compiler infrastructure, and open hardware architecture.
+  </p>
+
+  <ul>
+    <li>
+      Whitepaper: <a href={site.whitepaper}>PDF</a> / <a href={site.whitepaperHtml}>HTML</a>.
+      Licensed under <i>CC BY-NC 4.0</i>. DOI:{' '}
+      <a href={site.whitepaperDoi}>{site.whitepaperDoiId}</a> via CERN/Zenodo, indexed by OpenAIRE.
+    </li>
+    <li>
+      Official repository: <a href={site.github}>GitHub</a>. Licensed under <i>Apache 2.0</i>.
+      Authenticated via GPG: <a href={site.commitKey}>{site.commitKeyId}</a>.
+    </li>
+    <li>
+      Governed by the <a href={site.charter}>Foundational Charter and Statute</a> of the{' '}
+      {site.organization}.
+    </li>
+    <li>
+      Provenance: Human-in-Command, AI-assisted. Full intellectual responsibility with the
+      author(s), <a href={site.provenance}>C2PA-certified</a>. Aligns with{' '}
+      <a href={site.isoTeams}>ISO/IEC JTC 1/SC 42</a> human-machine teaming frameworks.
+    </li>
+  </ul>
+
+  <hr />
+
+  <div class="footer__partners">
+    <a href="https://www.c2pa.org/">
+      <img src="/images/c2pa.svg" alt="C2PA" height="40" />
+    </a>
+    <a href="https://www.openaire.eu/">
+      <img src="/images/openaire.svg" alt="OpenAIRE" height="40" />
+    </a>
+  </div>
+</footer>

@@ -1,0 +1,306 @@
+/* The original site was a single document in a narrow column: a centred
+   navigation line, a centred title with a small round mark, plain headings,
+   black underlined links, and one rule before the footer. The framework changed,
+   so the measurements below are the ones the page was already built with. */
+
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/archivo-400.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/archivo-400-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/archivo-500.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/archivo-500-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/archivo-600.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Archivo";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("/fonts/archivo-600-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/ibm-plex-mono-400-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  color-scheme: light;
+
+  --bg: #fff;
+  --fg: #000;
+  --fg-2: #333;
+  --fg-3: #555;
+  --line: #000;
+  --line-soft: rgba(0, 0, 0, 0.18);
+
+  --text: "Archivo", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* The column the page was built in: 60% of the viewport, never below 800px,
+     never above 1000px, and never wider than the window. */
+  --column: min(1000px, max(800px, 60vw));
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  /* The opening scene is wider than the window on purpose. Clipping the axis
+     rather than the element keeps the vertical bleed, and no scrollbar appears. */
+  overflow-x: clip;
+}
+
+.column {
+  width: 100%;
+  max-width: var(--column);
+  margin-inline: auto;
+  padding: 26px 20px;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+h2 {
+  font-size: 1.25rem;
+  margin: 0 0 10px;
+}
+
+h3 {
+  font-size: 1.05rem;
+  margin: 20px 0 6px;
+}
+
+p {
+  margin: 0 0 0.8rem;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+  text-decoration-thickness: 1px;
+}
+
+a:hover {
+  color: var(--fg-3);
+}
+
+ul,
+ol {
+  margin: 0 0 0.8rem;
+  padding-left: 1.15rem;
+}
+
+li {
+  margin-bottom: 0.2rem;
+}
+
+li > ul,
+li > ol {
+  margin-top: 0.2rem;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 30px 0;
+}
+
+code,
+kbd,
+samp {
+  font-family: var(--mono);
+  font-size: 0.92em;
+}
+
+.skip {
+  position: absolute;
+  left: -9999px;
+}
+
+.skip:focus {
+  left: 12px;
+  top: 12px;
+  z-index: 20;
+  padding: 8px 12px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+
+/* The navigation line sits above the title, centred, and wraps when it has to. */
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 22px;
+  font-size: 0.85rem;
+}
+
+.nav__sep {
+  font-weight: 700;
+}
+
+/* The title is the mark and the name on one centred line, as it was. */
+
+.title-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.title-row__mark {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  flex-shrink: 0;
+}
+
+/* Sections are headings in one flow rather than panels. */
+
+.section {
+  margin-top: 28px;
+}
+
+/* A definition list, for the primitives the figure draws. */
+
+.defs {
+  margin: 0 0 0.8rem;
+  border-top: 1px solid var(--line-soft);
+}
+
+.defs dt,
+.defs dd {
+  margin: 0;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.defs dt {
+  font-family: var(--mono);
+  font-size: 12.5px;
+}
+
+.defs dd {
+  font-size: 14.5px;
+  color: var(--fg-2);
+}
+
+.note {
+  font-size: 14px;
+  color: var(--fg-3);
+}
+
+.footer {
+  font-size: 0.85rem;
+}
+
+.footer__partners {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 15px;
+}
+
+.footer__partners img {
+  display: block;
+  width: auto;
+}
+
+@media (max-width: 768px) {
+  .title-row {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .title-row h1 {
+    text-align: center;
+  }
+
+  .nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav__sep {
+    display: none;
+  }
+
+  .defs dt,
+  .defs dd {
+    padding: 7px 0;
+  }
+}

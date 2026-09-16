@@ -1,0 +1,10 @@
+---
+import Section from './Section.astro';
+import { reasons } from '../config';
+---
+
+<Section id="why" title="Why">
+  <ul>
+    {reasons.map((reason) => <li>{reason}</li>)}
+  </ul>
+</Section>

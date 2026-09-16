@@ -1,0 +1,27 @@
+---
+import { elsewhere, site } from '../config';
+
+const items = [
+  ...elsewhere,
+  { label: 'Support', href: site.sponsors },
+  { label: 'Contact', href: `mailto:${site.contact}` },
+  { label: 'PGP key', href: site.contactKey },
+];
+---
+
+<nav class="nav column" aria-label="Elsewhere">
+  {
+    items.map((item, index) => (
+      <>
+        {index > 0 && (
+          <span class="nav__sep" aria-hidden="true">
+            ·
+          </span>
+        )}
+        <span>
+          <a href={item.href}>{item.label}</a>
+        </span>
+      </>
+    ))
+  }
+</nav>

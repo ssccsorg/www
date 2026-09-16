@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+import Intro from '../components/Intro.astro';
+import Model from '../components/Model.astro';
+import Stack from '../components/Stack.astro';
+import Why from '../components/Why.astro';
+import Where from '../components/Where.astro';
+import Now from '../components/Now.astro';
+import Projects from '../components/Projects.astro';
+import Engagements from '../components/Engagements.astro';
+import Sponsorship from '../components/Sponsorship.astro';
+import { site } from '../config';
+---
+
+<Base title={`${site.fullName} · ${site.name}`} description={site.description}>
+  <Intro />
+  <Stack />
+  <Why />
+  <Where />
+  <Now />
+  <Projects />
+  <Engagements />
+  <Sponsorship />
+</Base>

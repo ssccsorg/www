@@ -1,7 +1,7 @@
 // Builds the three-dimensional scene for the SSCCS homepage monument.
 //
 // The scene expresses the ontology of the primitives diagram in
-// static/images/ssccs-primitives.dot:
+// public/images/ssccs-primitives.dot:
 //
 //   Segments S = (c, id) sit immutably on a coordinate space and are bound
 //   into a Scheme Sigma = (A, R, L, O). A Field F = (C, T) raises a constraint

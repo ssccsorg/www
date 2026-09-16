@@ -1,0 +1,35 @@
+---
+import Section from './Section.astro';
+import { site } from '../config';
+---
+
+<Section id="now" title="Now">
+  <ul>
+    <li>
+      The core compiler and runtime are under active development. Current focus is on Field
+      composition algebra: making constraint sets composable while observation determinism is
+      preserved, with parallel work on{' '}
+      <a href="https://docs.ssccs.org/research/rust_baremetal.html">compiler pipeline hardening</a>
+      {' '}and <a href="https://docs.ssccs.org/research/riscv.html">hardware mapping</a>.
+    </li>
+    <li>
+      <a href="https://docs.ssccs.org/projects/nexus">Nexus</a>: a domain instantiation of the
+      SSCCS model, providing contract-governed, agentic coordination that ingests and connects
+      heterogeneous knowledge into a unified, queryable structure.
+    </li>
+    <li>
+      <a href="https://docs.ssccs.org/works/aws.html">Strategic partnerships</a>: with
+      infrastructure leaders, to extend the reach of agentic research environments.
+    </li>
+    <li>
+      <a href="https://docs.ssccs.org/works/openhw_integration.html">Hardware validation</a>:
+      phased prototyping from software emulation to FPGA deployment, with a parallel track for
+      radiation-tolerant platforms.
+    </li>
+  </ul>
+
+  <p class="note">
+    The <a href={site.works}>work notes</a> carry the measurements behind each of these as they
+    are taken.
+  </p>
+</Section>

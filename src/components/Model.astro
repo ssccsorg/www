@@ -1,0 +1,27 @@
+---
+import Section from './Section.astro';
+import { primitives, site } from '../config';
+---
+
+<Section id="model" title="The model">
+  <p>
+    The ontology has six members, and each of them is a region of a coordinate space rather than a
+    step in a sequence.
+  </p>
+
+  <dl class="defs">
+    {
+      primitives.map((item) => (
+        <>
+          <dt>{item.name}</dt>
+          <dd>{item.body}</dd>
+        </>
+      ))
+    }
+  </dl>
+
+  <p class="note">
+    The scene above draws all six at once. The <a href={site.axioms}>axioms</a> state them
+    formally, and the <a href={site.whitepaperHtml}>whitepaper</a> derives the stack from them.
+  </p>
+</Section>

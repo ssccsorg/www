@@ -1,23 +1,30 @@
 # Dependencies
-/node_modules
+node_modules/
 
-# Production
-/build
+# Build output
+dist/
 
-# Generated files
-.docusaurus
-.cache-loader
+# Generated types, from `astro sync`
+.astro/
 
-# Misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-/.quarto/
+# Caches left by the tooling that preceded this build, and by Quarto
+.docusaurus/
+.quarto/
 **/*.quarto_ipynb
+
+# Environment files. The negation keeps a future `.env.example` tracked, so the
+# shape of the configuration stays documented.
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# Editors and operating systems
+.DS_Store
+.idea/
+.vscode/
+
+# Local Wrangler state, written by `wrangler pages deploy`
+.wrangler/

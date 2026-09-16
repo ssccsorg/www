@@ -1,0 +1,28 @@
+---
+import Section from './Section.astro';
+import { projects, site } from '../config';
+---
+
+<Section id="projects" title="Projects">
+  <p>
+    The stack materializes as independent domain instantiations on the same substrate. Each one
+    solves its own problem and strengthens the primitives for all.
+  </p>
+
+  <ul>
+    {
+      projects.map((project) => (
+        <li>
+          <a href={project.href}>{project.name}</a>: {project.body}
+        </li>
+      ))
+    }
+  </ul>
+
+  <p>
+    SSCCS is a paradigm, not a single implementation. Its abstract primitives are being proven in
+    parallel across RTL, RISC-V assembly, and current-language work in{' '}
+    <a href={site.poc}>the proof-of-concept tree</a> before a reference compiler and runtime take
+    shape. The directory of all of them is at <a href={site.projects}>docs.ssccs.org/projects</a>.
+  </p>
+</Section>

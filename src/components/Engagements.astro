@@ -1,0 +1,38 @@
+---
+import Section from './Section.astro';
+import { engagements, site } from '../config';
+---
+
+<Section id="engagements" title="Engagements">
+  <p>
+    SSCCS welcomes partnerships from academia, industry, and public institutions worldwide, in any
+    nation with aligned public-interest programmes. Domain instantiations of the model are already
+    in motion, and collaboration is selective: engineering depth and long-term commitment matter
+    more than reach. Opportunities include research collaboration, software toolchain development,
+    and joint hardware validation. Current representative engagements:
+  </p>
+
+  <ul>
+    {
+      engagements.map((engagement) => (
+        <li>
+          <a href={engagement.href}>{engagement.name}</a>: {engagement.body}
+          {engagement.items.length > 0 && (
+            <ul>
+              {engagement.items.map((item) => (
+                <li>
+                  <a href={item.href}>{item.label}</a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+
+  <p>
+    For the full list of current engagements, see{' '}
+    <a href={`${site.works}#current-engagements`}>Current Engagements</a>.
+  </p>
+</Section>
