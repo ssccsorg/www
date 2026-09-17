@@ -68,15 +68,15 @@ export const primitives = [
   },
   {
     name: 'Observation Ω',
-    body: 'Reads the admissible set, applies the Field, and collapses. Loops disappear into layout.',
+    body: 'Applies the Field to the Scheme and produces one projection per admissible Segment. No data is moved: the layout already places each Segment at its address.',
   },
   {
     name: 'Projection P = Ω(Σ, F)',
-    body: 'Ephemeral, and one per observation. It exists as the act of observation and leaves nothing behind.',
+    body: 'Computed per observation, and not stored. A projection is defined by the Scheme, the Field, and the Field version it resolved against.',
   },
   {
     name: 'Data D = I(P)',
-    body: 'The shadow cast by collapsed possibility. Data, or state, is the result of projection.',
+    body: 'What a projection yields where it is recorded. The state of a system is the Data its observations have written.',
   },
 ] as const;
 
@@ -85,7 +85,7 @@ export const primitives = [
 export const principles = [
   {
     name: 'Energy and data movement',
-    body: 'Data movement dominates the energy cost of modern computing, and most of it exists to carry operands to a fixed execution point. The model keeps the structure stationary and lets projections emerge from it, so computation is not paid for twice, once in arithmetic and once in transport.',
+    body: 'Data movement dominates the energy cost of modern computing, and most of it exists to carry operands to a fixed execution point. The model keeps the structure stationary and moves no data during observation, so computation is not paid for twice, once in arithmetic and once in transport.',
   },
   {
     name: 'Parallelism',
@@ -97,7 +97,7 @@ export const principles = [
   },
   {
     name: 'Security and auditability',
-    body: 'Security and auditability are geometric consequences rather than add-on features. Immutable Segments carry cryptographic identity by design, the manifold provides isolation between independent sub-graphs, and every observation is a deterministic, traceable collapse from blueprint to result.',
+    body: 'Security and auditability follow from the structure rather than from added features. Immutable Segments carry cryptographic identity by design, independent sub-graphs share no mutable state and are observed without synchronisation, and every observation is deterministic and traceable from blueprint to result.',
   },
   {
     name: 'Digital sovereignty',
@@ -122,7 +122,7 @@ export const domains: ReadonlyArray<{ name: string; href?: string; body: string 
   },
   {
     name: 'Swarm robotics',
-    body: 'Agents observe a shared blueprint locally, so collective behaviour emerges without coordination chatter.',
+    body: 'Agents observe a shared Scheme locally, so a fleet holds one configuration without runtime coordination traffic.',
   },
   {
     name: 'Climate and scientific computing',

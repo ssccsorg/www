@@ -14,8 +14,8 @@
 //   space, and its level C(s) bounds the admissible set A(Sigma, F), drawn as
 //   the boundary of the region where the constraint holds. Observations Omega
 //   are a swarm: many viewpoints over one structure, each at its own height and
-//   its own line of sight. Each collapses to an ephemeral Projection
-//   P = Omega(Sigma, F), and Data D = I(P) is what that collapse records, on a
+//   its own line of sight. Each produces a Projection P = Omega(Sigma, F) that is
+//   not stored, and Data D = I(P) is what the projection records, on a
 //   coordinate, because the coordinate is the address.
 
 const SIZE = 6; // the coordinate space runs from -SIZE to SIZE on both ground axes
@@ -35,8 +35,10 @@ const INK = {
   coordinate: "#b3b9bd",
   relation: "#9aa1a6",
   observation: "#c08b2a",
-  collapse: "#d8b46a",
-  through: "#c3b28a",
+  // The two line families are held faint on purpose. They carry the reading of the
+  // scene, and the relief they are read against stays legible while they stay quiet.
+  collapse: "rgba(216, 180, 106, .82)",
+  through: "rgba(195, 178, 138, .8)",
   projection: "#ffffff",
   projectionRing: "#98a0a5",
   data: "#7d8489",
@@ -57,7 +59,10 @@ const SPECTRUM_BAND = [
 ];
 
 const STOPS = 12;
-const DRIFT_TURN = 24; // how far the spectrum turns over one drift cycle, in degrees
+// How far the spectrum turns over one cycle, in degrees. Wide enough that a shift
+// is visible while watching the page rather than only over a long visit, and still
+// narrow enough that the sheet keeps its two ends: water at one, gold at the other.
+const DRIFT_TURN = 32;
 
 function hslToRgb(hue, sat, light) {
   const h = ((hue % 360) + 360) % 360;
@@ -305,6 +310,37 @@ function sightLine(origin, target) {
   };
 }
 
+// How much of each line is drawn. The length a line gives up is taken off its outer
+// end, and the marker at that end moves in with it, so a line always runs between
+// the two markers it belongs to.
+const LINE_KEEP = 0.7;
+
+// The point a fraction of the way from `to` back towards `from`.
+function towards(from, to, fraction) {
+  return {
+    x: to.x + (from.x - to.x) * fraction,
+    y: to.y + (from.y - to.y) * fraction,
+    z: to.z + (from.z - to.z) * fraction,
+  };
+}
+
+// The point an observer is drawn at. One observer takes several lines of sight, so
+// the point has to be one they can all start from: the mean of their trimmed starts.
+// The observer comes in towards the structure with them and stays on every line it
+// draws.
+function observerPoint(origin, lines) {
+  let x = 0;
+  let y = 0;
+  let z = 0;
+  for (const line of lines) {
+    const start = towards(origin, line.meet, LINE_KEEP);
+    x += start.x;
+    y += start.y;
+    z += start.z;
+  }
+  return { x: x / lines.length, y: y / lines.length, z: z / lines.length };
+}
+
 // The swarm: observers over one structure. Each one takes several lines of
 // sight, in directions taken at random, so a single observer reads the
 // structure from several places at once.
@@ -341,7 +377,7 @@ function observers(count) {
       }
     }
     if (lines.length > 0) {
-      out.push({ origin, lines });
+      out.push({ origin: observerPoint(origin, lines), lines });
     }
   }
   return out;
@@ -380,6 +416,11 @@ function groundPath(points) {
 
 const SWARM = observers(OBSERVER_COUNT);
 const EVERY_LINE = SWARM.flatMap((o) => o.lines);
+
+// Where each transmitted line stops on its way down, and where the state it carries
+// is drawn. The line and the marker are the same point, so neither hangs off the
+// other.
+const STATE = EVERY_LINE.map((l) => towards(l.land, l.meet, LINE_KEEP));
 
 function build() {
   const nodes = latticeNodes();
@@ -436,16 +477,16 @@ function build() {
           [l.meet.x, l.meet.y, l.meet.z],
         ]),
       ),
-      { line: { color: INK.collapse, width: 1.5, dash: "dot" }, name: "Observation Ω · lines of sight" },
+      { line: { color: INK.collapse, width: 1.5 }, name: "Observation Ω · lines of sight" },
     ),
     // What the structure transmits. Each line enters at the angle it arrived,
     // so what it lands as is set by that angle.
     lineTrace(
-      EVERY_LINE.map((l) => [
+      EVERY_LINE.map((l, i) => [
         [l.meet.x, l.meet.y, l.meet.z],
-        [l.land.x, l.land.y, l.land.z],
+        [STATE[i].x, STATE[i].y, STATE[i].z],
       ]),
-      { line: { color: INK.through, width: 1.1, dash: "dot" }, name: "Ω · transmitted at the angle of arrival" },
+      { line: { color: INK.through, width: 1.1 }, name: "Ω · transmitted at the angle of arrival" },
     ),
     // Projection P = Omega(Sigma, F): the act, where a line meets the structure.
     {
@@ -466,9 +507,9 @@ function build() {
     {
       type: "scatter3d",
       mode: "markers",
-      x: EVERY_LINE.map((l) => l.land.x),
-      y: EVERY_LINE.map((l) => l.land.y),
-      z: EVERY_LINE.map((l) => l.land.z),
+      x: STATE.map((p) => p.x),
+      y: STATE.map((p) => p.y),
+      z: STATE.map((p) => p.z),
       marker: { color: INK.data, size: 3.4, symbol: "circle" },
       name: "State · Data D = I(P)",
     },
@@ -531,11 +572,12 @@ export const MONUMENT_SCENE = build();
 
 // The surface trace is the first one, and its colour is the spectrum.
 const SURFACE_TRACE = 0;
-const DRIFT_PERIOD_MS = 240000; // four minutes for a full sweep between the two spectra
-const DRIFT_STEP_MS = 6000;
+const DRIFT_PERIOD_MS = 120000; // two minutes for a full sweep between the two spectra
+const DRIFT_STEP_MS = 3000;
 
-// Shifts the sheet's spectrum a step at a time. The drift is slow enough that
-// the colour is never seen to change and only a long look reveals that it has.
+// Shifts the sheet's spectrum a step at a time. The turn is slow next to the clock:
+// a step moves the hue by about five degrees, which reads as a drift rather than as
+// a change, and the sheet's resolution is low enough that the restyle is cheap.
 export function startSpectrumDrift(plot, plotly) {
   const started = Date.now();
   return window.setInterval(() => {
