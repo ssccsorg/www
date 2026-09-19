@@ -59,10 +59,6 @@ const SPECTRUM_BAND = [
 ];
 
 const STOPS = 12;
-// How far the spectrum turns over one cycle, in degrees. Wide enough that a shift
-// is visible while watching the page rather than only over a long visit, and still
-// narrow enough that the sheet keeps its two ends: water at one, gold at the other.
-const DRIFT_TURN = 32;
 
 function hslToRgb(hue, sat, light) {
   const h = ((hue % 360) + 360) % 360;
@@ -105,20 +101,19 @@ function bandAt(t) {
   return SPECTRUM_BAND[SPECTRUM_BAND.length - 1];
 }
 
-// The spectrum at a point of the drift. The band turns as a whole, so every
-// phase of the drift is made of the same kind of colour: the sheet never fades
+// The colours of the sheet, one stop per point of the band. The band is fixed, and
+// a stop is made at the same lightness as every other, so the sheet never fades
 // towards white and never needs to be translucent.
-export function spectrum(drift) {
-  const turn = DRIFT_TURN * Math.sin(2 * Math.PI * drift);
+const SHEET_SPECTRUM = (() => {
   const stops = [];
   for (let i = 0; i < STOPS; i += 1) {
     const t = i / (STOPS - 1);
     const band = bandAt(t);
-    const rgb = hslToRgb(band.hue + turn, band.sat, band.light);
+    const rgb = hslToRgb(band.hue, band.sat, band.light);
     stops.push([t, `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`]);
   }
   return stops;
-}
+})();
 
 // Constraint potential raised by the Field: the sum of a few harmonics with two
 // basins. It gives the sheet its relief, and the level C(s) bounds the region
@@ -434,7 +429,7 @@ function build() {
       x: sheet.x,
       y: sheet.y,
       z: sheet.z,
-      colorscale: spectrum(0),
+      colorscale: SHEET_SPECTRUM,
       contours: {
         x: { show: false },
         y: { show: false },
@@ -569,22 +564,3 @@ function build() {
 }
 
 export const MONUMENT_SCENE = build();
-
-// The surface trace is the first one, and its colour is the spectrum.
-const SURFACE_TRACE = 0;
-const DRIFT_PERIOD_MS = 120000; // two minutes for a full sweep between the two spectra
-const DRIFT_STEP_MS = 3000;
-
-// Shifts the sheet's spectrum a step at a time. The turn is slow next to the clock:
-// a step moves the hue by about five degrees, which reads as a drift rather than as
-// a change, and the sheet's resolution is low enough that the restyle is cheap.
-export function startSpectrumDrift(plot, plotly) {
-  const started = Date.now();
-  return window.setInterval(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      return;
-    }
-    const drift = ((Date.now() - started) % DRIFT_PERIOD_MS) / DRIFT_PERIOD_MS;
-    plotly.restyle(plot, { colorscale: [spectrum(drift)] }, [SURFACE_TRACE]);
-  }, DRIFT_STEP_MS);
-}

@@ -65,6 +65,37 @@ const { backdrop = false } = Astro.props;
     pointer-events: none;
     -webkit-mask-image: radial-gradient(104% 92% at 68% 48%, #000 0%, #000 34%, rgba(0, 0, 0, 0) 80%);
     mask-image: radial-gradient(104% 92% at 68% 48%, #000 0%, #000 34%, rgba(0, 0, 0, 0) 80%);
+    animation: scene-hue 115s ease-in-out infinite;
+  }
+
+  /* The colour scheme of the scene turns over as a whole. The turn is made over the
+     canvas rather than inside the drawing, so it costs the compositor one filter pass
+     and never touches the scene graph: the colour moves while the camera is moving,
+     and neither can stall the other. Every hue turns together, so the sheet's spectrum
+     and the ink of the lines keep the relation the drawing is built on at every phase.
+
+     The turn is one swing out and back: the hue stands at zero a quarter of the way in
+     from either end, and reaches the near end of the swing a quarter of the way through
+     and the far end at three quarters. The phase a page opens on is taken from the
+     clock rather than from zero, so two visits do not begin on the same colour. */
+  @keyframes scene-hue {
+    0%,
+    50%,
+    100% {
+      filter: none;
+    }
+    25% {
+      filter: hue-rotate(48deg);
+    }
+    75% {
+      filter: hue-rotate(-48deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .monument--backdrop {
+      animation: none;
+    }
   }
 
   .monument--backdrop .monument__stage {
@@ -87,17 +118,27 @@ const { backdrop = false } = Astro.props;
 </style>
 
 <script>
-  import { MONUMENT_SCENE, startSpectrumDrift } from '../lib/monument';
+  import { MONUMENT_SCENE } from '../lib/monument';
 
   const UNAVAILABLE =
     'The interactive scene needs WebGL, which this browser did not provide. The same primitives are described in the Model section.';
 
-  const figure = document.querySelector('[data-monument]');
+  const figure = document.querySelector<HTMLElement>('[data-monument]');
   const stage = figure && figure.querySelector('[data-stage]');
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   const wide = 720;
 
   const backdrop = !!(figure && figure.classList.contains('monument--backdrop'));
+
+  // The colour turn opens on the phase the clock is at rather than on zero, so two
+  // visits to the page do not begin on the same colour. The period is the one the
+  // stylesheet sets, read back here so it is stated in one place.
+  if (figure) {
+    const period = parseFloat(getComputedStyle(figure).animationDuration) || 0;
+    if (period > 0) {
+      figure.style.animationDelay = `-${((Date.now() / 1000) % period).toFixed(3)}s`;
+    }
+  }
 
   // Plotly's gl3d bundle ships no types, so the graph handle and the library are
   // annotated with the shapes this file actually uses.
@@ -150,7 +191,7 @@ const { backdrop = false } = Astro.props;
   }
 
   // The orbit moves the camera eye only, so the centre stays where it is. The
-  // circle is derived from the camera actually applied to the scene, so the drift
+  // circle is derived from the camera actually applied to the scene, so the orbit
   // continues from the view on screen rather than snapping to one from the layout.
   // One turn takes this long. The camera is moved by the clock rather than by a
   // fixed step per tick, so the turn keeps its speed however fast frames arrive,
@@ -159,6 +200,46 @@ const { backdrop = false } = Astro.props;
   const TURN_SECONDS = backdrop ? 240 : 120;
   const TURN_RATE = (2 * Math.PI) / TURN_SECONDS;
 
+  // The view also follows the pointer. The pointer sets where the camera is asked to
+  // be, and a critically damped spring carries the camera there: it leaves rest,
+  // gathers speed and settles, so sweeping the cursor turns the scene under its own
+  // weight instead of dragging it. The period is the spring's own, in seconds. It is
+  // set far above the time a pointer takes to cross the page, so the scene answers a
+  // movement over many seconds and keeps moving long after the pointer has stopped.
+  const FOLLOW = { azimuth: 0.5, lift: 0.22, period: 15 };
+  const followed = { azimuth: 0, lift: 0 };
+
+  function followPointer(event: PointerEvent) {
+    if (event.pointerType && event.pointerType !== 'mouse') {
+      return;
+    }
+    // Held to the window: a pointer can be reported outside it, and the camera is
+    // asked for a share of the window rather than for a position.
+    const across = Math.max(-1, Math.min(1, (event.clientX / window.innerWidth) * 2 - 1));
+    const down = Math.max(-1, Math.min(1, (event.clientY / window.innerHeight) * 2 - 1));
+    followed.azimuth = across * FOLLOW.azimuth;
+    followed.lift = down * FOLLOW.lift;
+  }
+
+  // The pointer asks; the camera arrives on its own time. The backdrop follows the
+  // pointer because the page keeps it: the scene there is behind the reading column and
+  // takes no drag. A figure keeps the drag it draws on the canvas instead.
+  if (backdrop) {
+    window.addEventListener('pointermove', followPointer);
+    window.addEventListener('pointerleave', () => {
+      followed.azimuth = 0;
+      followed.lift = 0;
+    });
+  }
+
+  // One step of a critically damped spring, in seconds.
+  function spring(value: number, velocity: number, target: number, dt: number) {
+    const omega = (2 * Math.PI) / FOLLOW.period;
+    const acceleration = omega * omega * (target - value) - 2 * omega * velocity;
+    const next = velocity + acceleration * dt;
+    return { value: value + next * dt, velocity: next };
+  }
+
   function startOrbit() {
     stopOrbit();
     const applied =
@@ -166,7 +247,11 @@ const { backdrop = false } = Astro.props;
       MONUMENT_SCENE.layout.scene.camera;
     const { x, y, z } = applied.eye;
     const radius = Math.hypot(x, y);
-    let azimuth = Math.atan2(y, x);
+    let azimuth = Math.atan2(y, x); // where the view is asked to be
+    let turned = azimuth; // where the camera is
+    let turnSpeed = 0;
+    let height = z;
+    let heightSpeed = 0;
     let previous = performance.now();
     const state: any = { running: true, frame: 0 };
     orbit = state;
@@ -175,13 +260,20 @@ const { backdrop = false } = Astro.props;
       if (!state.running || !plot._fullLayout) {
         return;
       }
-      azimuth += TURN_RATE * ((now - previous) / 1000);
+      const dt = Math.min(0.25, (now - previous) / 1000);
       previous = now;
+      azimuth += TURN_RATE * dt;
+      const angle = spring(turned, turnSpeed, azimuth + followed.azimuth, dt);
+      turned = angle.value;
+      turnSpeed = angle.velocity;
+      const lifted = spring(height, heightSpeed, z + followed.lift, dt);
+      height = lifted.value;
+      heightSpeed = lifted.velocity;
       await plotly.relayout(plot, {
         'scene.camera.eye': {
-          x: radius * Math.cos(azimuth),
-          y: radius * Math.sin(azimuth),
-          z,
+          x: radius * Math.cos(turned),
+          y: radius * Math.sin(turned),
+          z: height,
         },
       });
       if (state.running) {
@@ -226,7 +318,6 @@ const { backdrop = false } = Astro.props;
     }
     if (!reduced.matches) {
       startOrbit();
-      startSpectrumDrift(plot, plotly);
     }
   }
 
