@@ -2,19 +2,26 @@
 interface Props {
   id: string;
   title: string;
+  // A section inside a group already sits in the group's column, so it carries
+  // neither the column nor the full top margin of a top-level section.
+  inset?: boolean;
+  level?: 2 | 3;
 }
 
-const { id, title } = Astro.props;
+const { id, title, inset = false, level = 2 } = Astro.props;
+const Heading = (level === 3 ? 'h3' : 'h2') as 'h2' | 'h3';
 ---
 
-<section class="section column" id={id}>
-  <h2>{title}</h2>
+<section class:list={['section', !inset && 'column', inset && 'section--inset']} id={id}>
+  <Heading>{title}</Heading>
   <slot />
 </section>
 
 <style>
   /* Sections are headings in one flow rather than panels. */
-  .section {
-    margin-top: 28px;
+  
+
+  .section--inset {
+    margin-top: 22px;
   }
 </style>

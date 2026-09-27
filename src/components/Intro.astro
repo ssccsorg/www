@@ -14,35 +14,44 @@ import { site } from '../consts';
       <h1>{site.fullName}</h1>
     </div>
 
+    <p class="intro__lead">
+      <a href={site.axiomsSsccs}>SSCCS</a> is a geometric computing model: a computation is an{' '}
+      <a href={`${site.whitepaperHtml}#observation-and-projection`}>observation</a> over a coordinate
+      space, instead of a sequence of instructions. An open-source stack with a compiler, a runtime, and an open hardware architecture.
+    </p>
+    
+    <p class="intro__sub"></p>
+
     <p>
-      <a href={site.axiomsSsccs}>SSCCS</a> is an open-source computing systems initiative that
-      replaces the sequential, instruction-centric model with a geometric{' '}
-      <a href={`${site.whitepaperHtml}#observation-and-projection`}>observation-driven</a> one. A
-      computation is an observation over a coordinate space, and that space is composed of
-      immutable{' '}
+      That space is composed of immutable{' '}
       <a href={`${site.whitepaperHtml}#definition-of-primitives`}>
         Segments, a Scheme, and the dynamic Fields
       </a>{' '}
-      that bound which Segments are admissible. Parallelism and verifiability follow from that
-      structure rather than from added mechanisms, with near-linear scalability and energy
-      efficiency as consequences; state is the result of projection, and time is one coordinate
-      among many.
+      that bound the admissible set. Parallelism and verifiability follow from that structure rather
+      than from added mechanisms, with near-linear scalability and energy efficiency as consequences.
+      State is the result of projection, and time is one coordinate among many.
     </p>
 
     <p>
-      SSCCS is built by the <a href={site.axioms}>{site.organization}</a> under an open-core model,
-      guided by its <a href={site.direction}>operational direction</a> and{' '}
-      <a href={site.philosophy}>philosophy</a>. The stack spans the full pipeline, from formal
-      specifications, through a software compiler toolchain, to an open hardware architecture. The
-      model is implemented on current silicon through{' '}
+      SSCCS is an initiative of the <a href={site.axioms}>{site.organization}</a>, built under an
+      open-core model, guided by its <a href={site.direction}>operational direction</a> and{' '}
+      <a href={site.philosophy}>philosophy</a>. The stack runs the full pipeline, from formal
+      specifications through the software toolchain to the hardware it targets. The model reaches
+      current silicon through{' '}
       <a href={`${site.projects}#recursive-synergy-of-the-shared-substrate`}>
         domain instantiations
       </a>{' '}
-      built on three core infrastructure pillars:{' '}
+      that rest on three core infrastructure pillars:{' '}
       <a href="https://docs.ssccs.org/projects/syntagma">synTagma</a>,{' '}
       <a href="https://docs.ssccs.org/projects/nexus">neXus</a>, and{' '}
       <a href="https://docs.ssccs.org/projects/kinetics">kineTics</a>.
     </p>
+
+    <p class="intro__open">
+      <a href="#brief" data-depth-open>The brief</a>
+    </p>
+    
+    
   </div>
 </div>
 
@@ -66,7 +75,7 @@ import { site } from '../consts';
     align-items: center;
     justify-content: center;
     gap: 14px;
-    margin-bottom: 26px;
+    margin-bottom: 4cap;
   }
 
   .title-row__mark {
@@ -83,6 +92,39 @@ import { site } from '../consts';
     display: block;
     width: 100%;
     height: 100%;
+  }
+
+  /* The opening statement, then one line at a lower rank that says what the stack
+     is made of. A rule divides the statement from the detail that follows. */
+  .intro__lead {
+    font-size: 1.15rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .intro__sub {
+    color: var(--fg-3);
+    margin-bottom: 1.1rem;
+  }
+
+  /* The control that opens the brief below, an outlined box on the page colour,
+     runs the same open and scroll as the group's own header. */
+  .intro__open {
+    margin: 28px;
+    text-align: center;
+  }
+
+  .intro__open a {
+    display: inline-block;
+    padding: 8px 14px;
+    border: 1px solid var(--line);
+    background: none;
+    color: var(--fg);
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+
+  .intro__open a:hover {
+    color: var(--fg-3);
   }
 
   @media (max-width: 768px) {

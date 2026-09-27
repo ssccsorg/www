@@ -1,0 +1,196 @@
+---
+import Model from './Model.astro';
+import Architecture from './Architecture.astro';
+import Principles from './Principles.astro';
+---
+
+<section class="depth column">
+  <details class="depth__fold" id="brief" data-depth>
+    <summary class="depth__summary">
+      <h2 class="depth__title">The brief</h2>
+      <span class="depth__note">The model, the architecture, and the design principles.</span>
+      <span class="depth__marker" aria-hidden="true"></span>
+    </summary>
+
+    <div class="depth__content">
+      <Model />
+      <Architecture />
+      <Principles />
+    </div>
+  </details>
+</section>
+
+<style>
+  /* The group is a section like the others: the same top margin, the same heading,
+     and a line under it, with a chevron at the trailing edge as the one sign that
+     it opens. It is the only fold on the page, so it carries no panel of its own. */
+
+  .depth__fold {
+    scroll-margin-top: 24px;
+  }
+
+  .depth__summary {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      'title marker'
+      'note marker';
+    align-items: center;
+    column-gap: 16px;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .depth__summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .depth__title {
+    grid-area: title;
+  }
+
+  .depth__note {
+    grid-area: note;
+  }
+
+  /* The marker is drawn rather than typed: a chevron that points down while the
+     group is closed and up while it is open. */
+  .depth__marker {
+    grid-area: marker;
+    width: 8px;
+    height: 8px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg);
+    transition: transform 0.2s ease;
+  }
+
+  .depth__fold[open] .depth__marker {
+    transform: rotate(-135deg);
+  }
+
+  .depth__summary:hover .depth__title {
+    color: var(--fg-3);
+  }
+
+  .depth__content {
+    padding-bottom: 10px;
+  }
+
+  /* Where the browser can animate to an intrinsic size, the group opens and
+     closes on a height transition rather than snapping. Elsewhere it keeps the
+     native instant toggle. */
+  @supports (interpolate-size: allow-keywords) {
+    .depth__fold {
+      interpolate-size: allow-keywords;
+    }
+
+    .depth__fold::details-content {
+      block-size: 0;
+      overflow-y: clip;
+      transition:
+        block-size 0.28s ease,
+        content-visibility 0.28s;
+      transition-behavior: allow-discrete;
+    }
+
+    .depth__fold[open]::details-content {
+      block-size: auto;
+    }
+
+    /* A deep link opens the group without the transition, so the target can be
+       scrolled to at its final position. */
+    .depth__fold.depth--jump::details-content {
+      transition: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .depth__marker {
+      transition: none;
+    }
+
+    .depth__fold::details-content {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const found = document.querySelector<HTMLDetailsElement>('[data-depth]');
+
+  if (found) {
+    const fold: HTMLDetailsElement = found;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const behavior = (): ScrollBehavior => (reduce.matches ? 'auto' : 'smooth');
+    // The group takes its height on a 0.28s transition where the browser supports
+    // one, and not at all where it does not or under reduced motion.
+    const expands = CSS.supports('interpolate-size', 'allow-keywords') && !reduce.matches;
+    const OPEN_MS = 280;
+    let fromAnchor = false;
+
+    function scrollToFold() {
+      fold.scrollIntoView({ block: 'start', behavior: behavior() });
+    }
+
+    // An anchor that targets a section inside the group opens it and lands on that
+    // section rather than on the summary line.
+    function openTarget() {
+      const id = window.location.hash.slice(1);
+      if (!id) {
+        return;
+      }
+      const target = document.getElementById(id);
+      if (!target || !fold.contains(target)) {
+        return;
+      }
+      if (!fold.open) {
+        fromAnchor = true;
+        fold.classList.add('depth--jump');
+        fold.open = true;
+      }
+      target.scrollIntoView({ block: 'start', behavior: behavior() });
+    }
+
+    // Opening the group brings it to the top of the viewport, so the sections it
+    // reveals start where the reader is looking. The move waits for the group to
+    // take its height, because the collapsed page has no room to scroll it up yet.
+    fold.addEventListener('toggle', () => {
+      if (fromAnchor) {
+        fromAnchor = false;
+        requestAnimationFrame(() => fold.classList.remove('depth--jump'));
+        return;
+      }
+      if (!fold.open) {
+        return;
+      }
+      window.setTimeout(
+        () => {
+          if (fold.open) {
+            scrollToFold();
+          }
+        },
+        expands ? OPEN_MS : 0,
+      );
+    });
+
+    // The control in the opening block runs the same open and scroll as the
+    // summary, so the two behave alike.
+    document.querySelectorAll<HTMLElement>('[data-depth-open]').forEach((control) => {
+      control.addEventListener('click', (event: MouseEvent) => {
+        if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
+          return;
+        }
+        event.preventDefault();
+        if (fold.open) {
+          scrollToFold();
+        } else {
+          fold.open = true;
+        }
+      });
+    });
+
+    requestAnimationFrame(openTarget);
+    window.addEventListener('hashchange', openTarget);
+  }
+</script>

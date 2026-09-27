@@ -18,13 +18,14 @@ npm run check    # astro check: types and diagnostics
 
 | | |
 |---|---|
-| `src/pages/index.astro` | the page, as an ordered list of sections |
+| `src/pages/index.astro` | the page, in reading order: the opening block, current work, projects, application domains, engagements, sponsorship, the depth group |
 | `src/components/` | one component per section, plus the figure |
 | `src/components/Header.astro` | the navigation line above the title |
-| `src/components/Intro.astro` | the title, the definition, and the figure |
+| `src/components/Intro.astro` | the title, the definition, the control that opens the depth group, and the figure |
 | `src/components/Monument.astro` | the interactive scene and the code that drives it |
 | `src/lib/monument.js` | the scene itself: the primitives of the model, as plotly traces |
-| `src/components/Section.astro` | the shared section frame: an anchor, a heading, a slot |
+| `src/components/Section.astro` | the shared section frame: an anchor, a heading, a slot, and an inset mode for a section nested in a group |
+| `src/components/Depth.astro` | the group fold holding the model, the architecture, and the design principles |
 | `src/layouts/Base.astro` | the document shell: the three landmarks, the fonts, the metadata, and the skip link |
 | `src/styles/global.css` | the tokens, the reset, the base type, and the two shared primitives: the column and the definition list |
 | `src/consts.ts` | the name, the description, the sections, and every link |
@@ -48,12 +49,23 @@ change is the framework rather than the design:
 - one column, `min(1000px, max(800px, 60vw))`, 30px of padding, on white
 - 15px body text at line-height 1.6, a 1.5rem title, 1.25rem section headings
 - a centred navigation line at 0.85rem, a centred title with a 44px round mark
-- black underlined links, one rule before the footer, a 0.85rem footer
+- black underlined links, a rule before the footer, a 0.85rem footer
 
 Two things were added, both from the model itself: the six primitives as a
 definition list in `The model`, and the machine-readable metadata in the head.
 The opening block carries the scene behind it, anchored right and bleeding past
 the window, at low opacity.
+
+The sections read in the order a visitor asks: what this is, what runs today,
+where it applies, and how to take part. The sponsorship closes that order, and
+the model, the architecture, and the design principles sit below it in one group
+fold on a single header row, styled as a section like the others, which opens on
+a height transition where the browser supports one and on the native instant
+toggle elsewhere. Opening the group brings its header to the top of the viewport,
+and an anchor that targets a section inside the group opens it and lands on that
+section. The opening block leads with the definition, then one line at a lower
+rank on what the stack is made of, then a control that opens the group below and
+scrolls to it.
 
 ## Fonts
 

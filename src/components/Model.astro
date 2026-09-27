@@ -3,7 +3,7 @@ import Section from './Section.astro';
 import { primitives, site } from '../consts';
 ---
 
-<Section id="model" title="The model">
+<Section id="model" title="The model" inset level={3}>
   <p>
     The ontology has six members, and each of them is a region of a coordinate space rather than a
     step in a sequence.
@@ -21,7 +21,7 @@ import { primitives, site } from '../consts';
   </dl>
 
   <p class="note">
-    The scene above draws all six at once. The <a href={site.axioms}>axioms</a> state them
+    The opening scene draws all six at once. The <a href={site.axioms}>axioms</a> state them
     formally, and the <a href={site.whitepaperHtml}>whitepaper</a> derives the stack from them.
   </p>
 </Section>

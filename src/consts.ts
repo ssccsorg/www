@@ -4,7 +4,7 @@ export const site = {
   organization: 'SSCCS Foundation',
   tagline: 'Computation as the observation of deterministic structure',
   description:
-    'SSCCS is an open-source computing systems initiative. It replaces the sequential instruction-centric model with a geometric one: state is the result of projection, and time is one coordinate among many.',
+    'SSCCS is a geometric computing model: a computation is an observation over a coordinate space, not a sequence of instructions. State is the result of projection, and time is one coordinate among many.',
   docs: 'https://docs.ssccs.org',
   whitepaper: 'https://docs.ssccs.org/whitepaper/whitepaper.pdf',
   whitepaperHtml: 'https://docs.ssccs.org/whitepaper/whitepaper',
@@ -41,15 +41,16 @@ export const elsewhere = [
   { label: 'Code', href: site.github },
 ] as const;
 
+// The order the page reads in: the reader's questions first, the depth below them.
 export const nav = [
+  { id: 'work', label: 'Current work' },
+  { id: 'projects', label: 'Projects' },
+  { id: 'domains', label: 'Application domains' },
+  { id: 'engagements', label: 'Engagements' },
+  { id: 'sponsorship', label: 'Sponsorship' },
   { id: 'model', label: 'The model' },
   { id: 'architecture', label: 'Architecture' },
   { id: 'principles', label: 'Design principles' },
-  { id: 'domains', label: 'Application domains' },
-  { id: 'work', label: 'Current work' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'engagements', label: 'Engagements' },
-  { id: 'sponsorship', label: 'Sponsorship' },
 ] as const;
 
 // The primitives of the ontology, in the order the monument builds them.
