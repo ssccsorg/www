@@ -17,31 +17,21 @@ import { site } from '../consts';
     <p class="intro__lead">
       <a href={site.axiomsSsccs}>SSCCS</a> is a geometric computing model: a computation is an{' '}
       <a href={`${site.whitepaperHtml}#observation-and-projection`}>observation</a> over a coordinate
-      space, instead of a sequence of instructions. An open-source stack with a compiler, a runtime, and an open hardware architecture.
+      space, not a sequence of instructions. That space is composed of immutable{' '}
+      <a href={`${site.whitepaperHtml}#definition-of-primitives`}>{'Segments, a Scheme, and the dynamic Fields'}</a>{' '}
+      that bound the admissible set. Parallelism and verifiability follow from that structure rather
+      than from added mechanisms, and near-linear scalability and energy efficiency follow with them.
+      State is the result of projection, and time is one coordinate among many.
     </p>
     
     <p class="intro__sub"></p>
-
+    
     <p>
-      That space is composed of immutable{' '}
-      <a href={`${site.whitepaperHtml}#definition-of-primitives`}>
-        Segments, a Scheme, and the dynamic Fields
-      </a>{' '}
-      that bound the admissible set. Parallelism and verifiability follow from that structure rather
-      than from added mechanisms, with near-linear scalability and energy efficiency as consequences.
-      State is the result of projection, and time is one coordinate among many.
-    </p>
-
-    <p>
-      SSCCS is an initiative of the <a href={site.axioms}>{site.organization}</a>, built under an
-      open-core model, guided by its <a href={site.direction}>operational direction</a> and{' '}
-      <a href={site.philosophy}>philosophy</a>. The stack runs the full pipeline, from formal
-      specifications through the software toolchain to the hardware it targets. The model reaches
-      current silicon through{' '}
-      <a href={`${site.projects}#recursive-synergy-of-the-shared-substrate`}>
-        domain instantiations
-      </a>{' '}
-      that rest on three core infrastructure pillars:{' '}
+      The <a href={site.axioms}>{site.organization}</a> develops the model, guided by its{' '}
+      <a href={site.direction}>operational direction</a> and <a href={site.philosophy}>philosophy</a>.
+      It reaches current silicon through open stacks that run the full pipeline, from formal
+      specifications through the software toolchain, a compiler and a runtime, to the open hardware
+      architecture. Those stacks rest on three shared layers:{' '}
       <a href="https://docs.ssccs.org/projects/syntagma">synTagma</a>,{' '}
       <a href="https://docs.ssccs.org/projects/nexus">neXus</a>, and{' '}
       <a href="https://docs.ssccs.org/projects/kinetics">kineTics</a>.
