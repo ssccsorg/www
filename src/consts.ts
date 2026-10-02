@@ -1,7 +1,7 @@
 export const site = {
   name: 'SSCCS',
   fullName: 'Schema–Segment Composition Computing System',
-  organization: 'SSCCS Foundation (Pre-incorporation)',
+  organization: 'SSCCS Initiative',
   tagline: 'Computation as the observation of deterministic structure',
   description:
     'SSCCS is a geometric computing model: a computation is an observation over a coordinate space, not a sequence of instructions. State is the result of projection, and time is one coordinate among many.',
