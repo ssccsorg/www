@@ -140,17 +140,22 @@ export const projects = [
   {
     name: 'neXus',
     href: 'https://docs.ssccs.org/projects/nexus',
-    body: 'isomorphic runtime fabric unifying swarm agents and spatial storage.',
+    body: 'content-addressed state fabric for heterogeneous systems.',
   },
   {
     name: 'synTagma',
     href: 'https://docs.ssccs.org/projects/syntagma',
-    body: 'spatial coordinate space computing from software to hardware; identity without hashing, the coordinate is the address.',
+    body: 'spatial coordinate space computing system based on Tagma primitive.',
   },
   {
     name: 'Chton',
     href: 'https://docs.ssccs.org/projects/chton',
-    body: 'materialisation IO fabric for coordinate spaces over physical media; the storage format is the memory layout.',
+    body: 'materialisation IO fabric for coordinate spaces over physical media.',
+  },
+  {
+    name: 'Skene',
+    href: 'https://docs.ssccs.org/projects/skene',
+    body: 'modular control surface for universal projects based on FIH state chain.',
   },
   {
     name: 'ExaVerif',
@@ -165,7 +170,7 @@ export const projects = [
   {
     name: 'telos',
     href: 'https://docs.ssccs.org/projects/telos',
-    body: 'a general agent runs as a fleet of peers with coordinate teleport.',
+    body: 'general agent runs as a fleet of peers with coordinate teleport.',
   },
   {
     name: 'kineTics',
