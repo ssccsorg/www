@@ -30,7 +30,8 @@ npm run check    # astro check: types and diagnostics
 | `src/styles/global.css` | the tokens, the reset, the base type, and the two shared primitives: the column and the definition list |
 | `src/consts.ts` | the name, the description, the sections, and every link |
 | `src/types/` | the one ambient declaration the untyped plotly bundle needs |
-| `public/` | the mark, the favicon, the key, the headers, and the partner logos |
+| `scripts/og-card.mjs` | renders the social card from the scene's own geometry; `scripts/og-scene.mjs` holds that geometry |
+| `public/` | the mark, the favicon, the social card, the key, the headers, and the partner logos |
 
 Component styles are scoped by Astro, so a rule lives in the `<style>` block of the
 component that renders the element. The two exceptions are the elements more than one
@@ -85,6 +86,45 @@ asset on the site. The scene is a JavaScript translation of the ontology in
 a Field raising a constraint potential, Observations collapsing into projections,
 and Data as the shadow they cast. Its colours live in `src/lib/monument.js` and
 belong to the drawing rather than to the page.
+
+## The social card
+
+`public/og.svg` is the image a link to the site carries: the name, the tagline, and
+the landscape the opening block draws, in one card. `public/og.png` is the same
+card at 1200 by 630, which is the size the head declares and the size a crawler
+shows when it will not take an SVG. Both come from `scripts/og-card.mjs`, which
+draws the card out of `scripts/og-scene.mjs`: the monument's sheet, projected with
+the camera the page's scene opens on, moved back along its own line of sight, so
+the sheet's relief, its spectrum, the lattice on it, the Scheme's relations, and
+the observers' lines of sight all come from the scene's model rather than from the
+card being drawn by hand.
+
+The landscape is drawn whole: the sheet is framed inside the card, with a margin
+above and a little air on each side, so no edge of it is cropped. The camera is the
+page's own, lifted so the sheet is read as a surface rather than edge-on. The copy
+sits below and to the left of the landscape, on a soft white veil risen out of that
+corner, which keeps the type on the page's own paper without cutting the drawing.
+
+| Part of the card | What is there |
+|---|---|
+| top and right | air, with the sheet's far ground a little inside the edge |
+| centre | the field, its lattice, the Scheme's relations, and the observers |
+| top left | the mark |
+| bottom left | the name, under the veil, and the two lines of the tagline |
+
+A `clipPath` cuts the lattice, the relations, and the observers at the sheet's own
+box, so nothing is drawn past the field it belongs to. The sheet itself is drawn in
+full, which is what keeps the composition balanced top to bottom.
+
+```
+node scripts/og-card.mjs > public/og.svg
+rsvg-convert -w 1200 -h 630 -b white public/og.svg -o public/og.png
+```
+
+The type is Archivo at 600 and IBM Plex Mono, the page's own faces, resolved from
+the machine that renders the PNG. The card's lines are text so the copy stays
+selectable in the SVG, and the mark is `public/mark.svg` itself, so the two cannot
+drift apart.
 
 ## Deploy
 
