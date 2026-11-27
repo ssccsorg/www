@@ -1,6 +1,6 @@
 export const site = {
   name: 'SSCCS',
-  fullName: 'Schema–Segment Composition Computing System',
+  fullName: 'Scheme–Segment Composition Computing System',
   organization: 'SSCCS Initiative',
   tagline: 'Computation as the observation of deterministic structure',
   description:
@@ -57,7 +57,7 @@ export const nav = [
 export const primitives = [
   {
     name: 'Segment S = (c, id)',
-    body: 'Immutable. Sits on the coordinate space and carries its identity from the coordinate rather than from a hash.',
+    body: 'Immutable. Sits on the coordinate space, and carries an identity derived from its coordinates: a hash of them in general, and the coordinate itself wherever the coordinate structure is self-validating.',
   },
   {
     name: 'Scheme Σ = (A, R, L, O)',

@@ -81,7 +81,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
       <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
     </radialGradient>
   </defs>
-  <title id="og-title">SSCCS: Schema-Segment Composition Computing System</title>
+  <title id="og-title">SSCCS: Scheme–Segment Composition Computing System</title>
   <desc id="og-desc">The model as one landscape: immutable segments on a coordinate space, a scheme binding them into a layout, a field raising a constraint potential, observers whose lines of sight are transmitted through the structure, and the state they record.</desc>
   <g id="scene" fill="none" stroke-linejoin="round">
     ${sheet}
@@ -92,7 +92,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
   <rect width="${W}" height="${H}" fill="url(#veil)"/>
   <g id="mark" transform="translate(56 44) scale(${(116 / 949.8).toFixed(5)})" fill="#000000" stroke="none">${markGroup}</g>
   <text x="54" y="500" font-family="Archivo SemiBold, Archivo, Helvetica, Arial, sans-serif" font-size="126" font-weight="600" letter-spacing="-3">SSCCS</text>
-  <text x="56" y="552" font-family="IBM Plex Mono, Menlo, monospace" font-size="22" fill="#333333">Schema-Segment Composition Computing System</text>
+  <text x="56" y="552" font-family="IBM Plex Mono, Menlo, monospace" font-size="22" fill="#333333">Scheme–Segment Composition Computing System</text>
   <text x="56" y="584" font-family="IBM Plex Mono, Menlo, monospace" font-size="22" fill="#444444">Computation as the observation of deterministic structure</text>
 </svg>`;
 
