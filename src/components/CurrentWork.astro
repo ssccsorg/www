@@ -16,9 +16,9 @@ import { site } from '../consts';
   <dl class="defs">
     <dt>Field composition algebra</dt>
     <dd>
-      The current focus of the core team. Constraint sets have to compose while observation
-      determinism is preserved, so that a composed Field can be reasoned about with the same
-      guarantees as its parts.
+      A composed Field has to be reasoned about with the same guarantees as its parts, so the work
+      runs through composition itself: a composite of two evolving Fields is versioned from its
+      constituents and rebuilt only when an observation finds the version changed.
     </dd>
 
     <dt>Compiler pipeline</dt>
@@ -39,8 +39,19 @@ import { site } from '../consts';
     <dt>Hardware validation</dt>
     <dd>
       Phased prototyping from software emulation to FPGA deployment, with a parallel track for
-      radiation-tolerant platforms. See{' '}
-      <a href="https://docs.ssccs.org/works/openhw_integration.html">hardware validation</a>.
+      radiation-tolerant platforms. The carrier answers the anchor set on the die, and the decoder
+      is placed and routed as a physical block. See{' '}
+      <a href="https://docs.ssccs.org/works/openhw_integration.html">hardware validation</a> and the{' '}
+      <a href="https://docs.ssccs.org/projects/syntagma/hardware/">measured hardware figures</a>.
+    </dd>
+
+    <dt>Reference implementation</dt>
+    <dd>
+      The primitives run in code on four substrates that are built and checked by different means:
+      a Rust reference, branchless RISC-V assembly, SystemVerilog, and an independent verifier. One
+      anchor set pins the convention across all of them, so agreement is evidence about the model
+      rather than about one implementation. See the{' '}
+      <a href="https://docs.ssccs.org/poc/">proof of concept</a>.
     </dd>
 
     <dt>Strategic partnerships</dt>
@@ -51,6 +62,16 @@ import { site } from '../consts';
       that want to validate the model against their own workloads.
     </dd>
   </dl>
+
+  <p>
+    The project publishes what it measures, including where a result is weaker than expected. The
+    Tagma decoder closes the 12 MHz board clock at 16.79 MHz on an iCE40, and the series states
+    plainly that this hardware is not a speedup: the software reference reads a coordinate faster
+    than the gate-level path does. What the gates buy is determinism, energy, and a record layer
+    addressed by coordinate rather than by index. The{' '}
+    <a href="https://docs.ssccs.org/projects/syntagma/hardware/">measured figures</a> carry each
+    number with the channel that produced it.
+  </p>
 
   <p>
     The <a href={site.works}>work notes</a> carry the measurements behind each of these as they are

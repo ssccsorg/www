@@ -36,8 +36,9 @@ import { site } from '../consts';
     <dt>Reference implementation</dt>
     <dd>
       A Rust reference implementation validates all core primitives under continuous integration.
-      The same primitives are proven in parallel across RTL, RISC-V assembly, and current-language
-      work in the <a href={site.poc}>proof-of-concept tree</a>, before the reference compiler and
+      The same primitives are proven in parallel across RTL, RISC-V assembly, and an independent
+      verifier in the <a href={site.poc}>proof-of-concept tree</a>, and the same run is described on
+      the <a href="https://docs.ssccs.org/poc/">PoC page</a>, before the reference compiler and
       runtime take their final shape.
     </dd>
   </dl>
