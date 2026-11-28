@@ -11,22 +11,20 @@ const year = new Date().getFullYear();
   <ul>
     <li>
       Whitepaper: <a href={site.whitepaper}>PDF</a> / <a href={site.whitepaperHtml}>HTML</a>.
-      Licensed under <i>CC BY-NC 4.0</i>. DOI:{' '}
-      <a href={site.whitepaperDoi}>{site.whitepaperDoiId}</a> via CERN/Zenodo, indexed by OpenAIRE.
+      Licensed under <i>CC BY-NC 4.0</i>. DOI: <a href={site.whitepaperDoi}>{site.whitepaperDoiId}</a>
+      via CERN/Zenodo, indexed by OpenAIRE.
     </li>
     <li>
-      Official repository: <a href={site.github}>GitHub</a>. Licensed under <i>Apache 2.0</i>. Authenticated via GPG: <a href={site.commitKey}>{site.commitKeyId}</a>.
+      Repository: <a href={site.github}>GitHub</a>. Software under <i>Apache 2.0</i>; hardware
+      sources (HDL, constraints, synthesis and PDK flow) under <i>CERN-OHL-P v2</i>. GPG:
+      <a href={site.commitKey}>{site.commitKeyId}</a>.
     </li>
     <li>
-      Proof of concept: foundation-owned, and published for reading and citation under <i>SSCCS Research Preview 1.0</i>. Reuse needs written permission.
-    </li>
-    <li>
-      Governed by the <a href={site.charter}>Foundational Charter and Statute</a> of the{' '}
-      {site.organization}.
+      Governed by the <a href={site.charter}>Foundational Charter and Statute</a> of {site.organization}.
     </li>
     <li>
       Provenance: Human-in-Command, AI-assisted. Full intellectual responsibility with the
-      author(s), <a href={site.provenance}>C2PA-signed</a>. Aligns with{' '}
+      author(s), <a href={site.provenance}>C2PA-signed</a>. Aligns with
       <a href={site.isoTeams}>ISO/IEC JTC 1/SC 42</a> human-machine teaming frameworks.
     </li>
   </ul>
