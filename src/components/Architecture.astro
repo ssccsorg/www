@@ -7,8 +7,7 @@ import { site } from '../consts';
   <p>
     SSCCS is developed as a software-first system: a compiler toolchain, a runtime, and an open
     binary format, with the hardware architecture specified alongside them and derived from the same
-    structure. The layers below are the ones that carry the model from a specification to a running
-    substrate.
+    structure. These layers carry the model from a specification to a running substrate.
   </p>
 
   <dl class="defs">
@@ -23,22 +22,22 @@ import { site } from '../consts';
     <dt>Hardware abstraction</dt>
     <dd>
       A target-agnostic hardware abstraction layer keeps the ontological core independent of the
-      execution substrate. The same Scheme projects onto a CPU, an FPGA, or a processor-in-memory
+      execution substrate, so one Scheme projects onto a CPU, an FPGA, or a processor-in-memory
       architecture without rewrites.
     </dd>
 
     <dt>Binary format</dt>
     <dd>
-      The compiled artefact is an open binary format. The structural description and the executable
-      are one document, so a deployment carries its own specification.
+      The compiled artefact is an open binary format. Structural description and executable are one
+      document, so a deployment carries its own specification.
     </dd>
 
     <dt>Reference implementation</dt>
     <dd>
       A Rust reference implementation validates all core primitives under continuous integration.
-      The same primitives are proven in parallel across RTL, RISC-V assembly, and an independent
-      verifier in the <a href={site.poc}>proof-of-concept tree</a>, and the same run is described on
-      the <a href="https://docs.ssccs.org/poc/">PoC page</a>, before the reference compiler and
+      Those primitives are proven in parallel across RTL, RISC-V assembly, and an independent
+      verifier in the <a href={site.poc}>proof-of-concept tree</a>, described the same way on
+      the <a href="https://docs.ssccs.org/poc/">PoC page</a>, all before the reference compiler and
       runtime take their final shape.
     </dd>
   </dl>

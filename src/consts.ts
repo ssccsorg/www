@@ -18,10 +18,10 @@ export const site = {
   poc: 'https://docs.ssccs.org/poc/',
   sponsors: 'https://github.com/sponsors/ssccsorg',
   contact: 'contact@ssccs.org',
-  // The key published on the organisation's navigation line.
+  // Key published on the organisation's navigation line.
   contactKey: 'https://keys.openpgp.org/search?q=0xF812D4374FEE96A1',
   contactKeyId: '0xF812D4374FEE96A1',
-  // The key that signs commits in the official repository.
+  // Key that signs commits in the official repository.
   commitKey: 'https://keys.openpgp.org/search?q=BCCB196BADF50C99',
   commitKeyId: 'BCCB196BADF50C99',
   whitepaperDoi: 'https://doi.org/10.5281/zenodo.18759106',
@@ -31,8 +31,8 @@ export const site = {
   isoTeams: 'https://www.iso.org/committee/6794475.html',
 } as const;
 
-// The destinations an outside reader arrives for. The document's own sections
-// are reached from its contents list rather than from the masthead.
+// Destinations an outside reader arrives for. The document's own sections are
+// reached from its contents list rather than from the masthead.
 export const elsewhere = [
   { label: 'Documentation', href: site.docs },
   { label: 'Whitepaper', href: site.whitepaper },
@@ -41,7 +41,7 @@ export const elsewhere = [
   { label: 'Code', href: site.github },
 ] as const;
 
-// The order the page reads in: the reader's questions first, the depth below them.
+// Order the page reads in: the reader's questions first, the depth below them.
 export const nav = [
   { id: 'work', label: 'Current work' },
   { id: 'projects', label: 'Projects' },
@@ -53,7 +53,7 @@ export const nav = [
   { id: 'principles', label: 'Design principles' },
 ] as const;
 
-// The primitives of the ontology, in the order the monument builds them.
+// Primitives of the ontology, in the order the monument builds them.
 export const primitives = [
   {
     name: 'Segment S = (c, id)',
@@ -61,7 +61,7 @@ export const primitives = [
   },
   {
     name: 'Scheme Σ = (A, R, L, O)',
-    body: 'The static structure that binds Segments into a layout. It is compiled, and it is not interpreted at run time.',
+    body: 'Static structure that binds Segments into a layout. It is compiled, and it is not interpreted at run time.',
   },
   {
     name: 'Field F = (C, T)',
@@ -77,12 +77,12 @@ export const primitives = [
   },
   {
     name: 'Data D = I(P)',
-    body: 'What a projection yields where it is recorded. The state of a system is the Data its observations have written.',
+    body: 'What a projection yields where it is recorded. A system state is the Data its observations have written.',
   },
 ] as const;
 
-// The properties the model is designed around, stated as claims that the
-// implementation is expected to bear out.
+// Properties the model is designed around, stated as claims the implementation is
+// expected to bear out.
 export const principles = [
   {
     name: 'Energy and data movement',
@@ -106,7 +106,7 @@ export const principles = [
   },
 ] as const;
 
-// The domains where the constraint the model addresses is the binding one.
+// Domains where the constraint the model addresses is the binding one.
 export const domains: ReadonlyArray<{ name: string; href?: string; body: string }> = [
   {
     name: 'Space systems',

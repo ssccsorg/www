@@ -18,9 +18,9 @@ const origin = new URL('/', Astro.site).origin;
 const social = new URL('/og.png', Astro.site);
 const socialAlt = `${site.name}: ${site.tagline}`;
 
-// One graph for the whole site, emitted per page. The organization and the site are
-// declared once by identifier, so every page states the same publisher rather than
-// repeating a copy of it.
+// One graph for the whole site, emitted per page. Organization and site are declared
+// once by identifier, so every page states the same publisher rather than repeating a
+// copy of it.
 const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -109,8 +109,8 @@ const structuredData = {
 </html>
 
 <style>
-  /* Hidden until it takes focus, then pinned over the top left corner. The target
-     is given tabindex so the browser moves its reading position into the column. */
+  /* Hidden until it takes focus, then pinned over the top left corner. The target is
+     given tabindex so the browser moves its reading position into the column. */
   .skip {
     position: absolute;
     left: -9999px;

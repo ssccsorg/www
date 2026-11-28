@@ -1,5 +1,5 @@
 ---
-// The scene the page opens on, drawn from the model itself. Plotly's gl3d bundle
+// Scene the page opens on, drawn from the model itself. Plotly's gl3d bundle
 // is fetched only when the browser has WebGL and only when the scene is about to
 // be seen, because it is by far the largest asset on the site.
 //
@@ -40,20 +40,19 @@ const { backdrop = false } = Astro.props;
     height: clamp(420px, 55vh, 640px);
   }
 
-  /* The scene stands behind the opening block, full and slightly off to the
-     right, running past the viewport rather than stopping inside it. It sits
-     behind everything on the page, including the sections that follow the
-     opening block, and it fades out towards the left and downwards, which keeps
-     the reading column clear.
+  /* Scene stands behind the opening block, full and slightly off to the right,
+     running past the viewport rather than stopping inside it, behind everything on
+     the page including the sections that follow, fading out towards the left and
+     downwards so the reading column stays clear.
 
-     The box is sized off the viewport and keeps the aspect of the drawing, so
-     the drawing runs past the viewport on both sides rather than sitting inside
-     it. The width term sets how far past: it is what makes the desktop drawing
-     as generous as the one on a phone, where the height term takes over and the
-     drawing runs well past both edges. The drawing turns, and a square
-     coordinate space projects 41 percent wider on the diagonal than on the axis,
-     so the camera stands back far enough that the drawing never touches the box
-     at any azimuth, and only the mask and the viewport cut it. */
+     Box is sized off the viewport and keeps the aspect of the drawing, so the
+     drawing runs past the viewport on both sides rather than sitting inside it.
+     The width term sets how far past: it is what makes the desktop drawing as
+     generous as the one on a phone, where the height term takes over and the
+     drawing runs well past both edges. The drawing turns, and a square coordinate
+     space projects 41 percent wider on the diagonal than on the axis, so the
+     camera stands back far enough that the drawing never touches the box at any
+     azimuth, and only the mask and the viewport cut it. */
   .monument--backdrop {
     --scene-width: max(220vw, 126vh);
     position: absolute;
@@ -68,16 +67,16 @@ const { backdrop = false } = Astro.props;
     animation: scene-hue 115s ease-in-out infinite;
   }
 
-  /* The colour scheme of the scene turns over as a whole. The turn is made over the
+  /* Colour scheme of the scene turns over as a whole. The turn is made over the
      canvas rather than inside the drawing, so it costs the compositor one filter pass
-     and never touches the scene graph: the colour moves while the camera is moving,
-     and neither can stall the other. Every hue turns together, so the sheet's spectrum
-     and the ink of the lines keep the relation the drawing is built on at every phase.
+     and never touches the scene graph: colour moves while the camera is moving, and
+     neither can stall the other. Every hue turns together, so the sheet's spectrum and
+     the ink of the lines keep the relation the drawing is built on at every phase.
 
-     The turn is one swing out and back: the hue stands at zero a quarter of the way in
-     from either end, and reaches the near end of the swing a quarter of the way through
-     and the far end at three quarters. The phase a page opens on is taken from the
-     clock rather than from zero, so two visits do not begin on the same colour. */
+     One swing out and back: the hue stands at zero a quarter of the way in from either
+     end, reaches the near end of the swing a quarter of the way through and the far end
+     at three quarters. The phase a page opens on is taken from the clock rather than
+     from zero, so two visits do not begin on the same colour. */
   @keyframes scene-hue {
     0%,
     50%,
@@ -102,8 +101,8 @@ const { backdrop = false } = Astro.props;
     height: 100%;
   }
 
-  /* The stage is replaced by this note when the browser cannot draw the scene,
-     so the element is created by the script and carries no scope attribute. */
+  /* Stage is replaced by this note when the browser cannot draw the scene, so the
+     element is created by the script and carries no scope attribute. */
   :global(.monument__note) {
     display: flex;
     height: 100%;
@@ -130,7 +129,7 @@ const { backdrop = false } = Astro.props;
 
   const backdrop = !!(figure && figure.classList.contains('monument--backdrop'));
 
-  // The colour turn opens on the phase the clock is at rather than on zero, so two
+  // Colour turn opens on the phase the clock is at rather than on zero, so two
   // visits to the page do not begin on the same colour. The period is the one the
   // stylesheet sets, read back here so it is stated in one place.
   if (figure) {
@@ -173,8 +172,8 @@ const { backdrop = false } = Astro.props;
     }
   }
 
-  // The backdrop carries the same drawing as the figure, with the axis titles and
-  // the legend left out so nothing competes with the reading column.
+  // Backdrop carries the same drawing as the figure, with the axis titles and the
+  // legend left out so nothing competes with the reading column.
   function scene() {
     const base = MONUMENT_SCENE.layout.scene;
     if (!backdrop) {
@@ -190,22 +189,22 @@ const { backdrop = false } = Astro.props;
     };
   }
 
-  // The orbit moves the camera eye only, so the centre stays where it is. The
-  // circle is derived from the camera actually applied to the scene, so the orbit
-  // continues from the view on screen rather than snapping to one from the layout.
-  // One turn takes this long. The camera is moved by the clock rather than by a
-  // fixed step per tick, so the turn keeps its speed however fast frames arrive,
-  // and the next move is scheduled only once the last one has been drawn, so a
-  // slow frame stretches the interval instead of stacking up behind it.
+  // Orbit moves the camera eye only, so the centre stays where it is. The circle is
+  // derived from the camera actually applied to the scene, so the orbit continues
+  // from the view on screen rather than snapping to one from the layout. One turn
+  // takes this long. The camera is moved by the clock rather than by a fixed step per
+  // tick, so the turn keeps its speed however fast frames arrive, and the next move is
+  // scheduled only once the last one has been drawn, so a slow frame stretches the
+  // interval instead of stacking up behind it.
   const TURN_SECONDS = backdrop ? 240 : 120;
   const TURN_RATE = (2 * Math.PI) / TURN_SECONDS;
 
-  // The view also follows the pointer. The pointer sets where the camera is asked to
-  // be, and a critically damped spring carries the camera there: it leaves rest,
-  // gathers speed and settles, so sweeping the cursor turns the scene under its own
-  // weight instead of dragging it. The period is the spring's own, in seconds. It is
-  // set far above the time a pointer takes to cross the page, so the scene answers a
-  // movement over many seconds and keeps moving long after the pointer has stopped.
+  // View also follows the pointer. The pointer sets where the camera is asked to be,
+  // and a critically damped spring carries the camera there: it leaves rest, gathers
+  // speed and settles, so sweeping the cursor turns the scene under its own weight
+  // instead of dragging it. The period is the spring's own, in seconds, set far above
+  // the time a pointer takes to cross the page, so the scene answers a movement over
+  // many seconds and keeps moving long after the pointer has stopped.
   const FOLLOW = { azimuth: 0.5, lift: 0.22, period: 15 };
   const followed = { azimuth: 0, lift: 0 };
 
@@ -221,9 +220,9 @@ const { backdrop = false } = Astro.props;
     followed.lift = down * FOLLOW.lift;
   }
 
-  // The pointer asks; the camera arrives on its own time. The backdrop follows the
-  // pointer because the page keeps it: the scene there is behind the reading column and
-  // takes no drag. A figure keeps the drag it draws on the canvas instead.
+  // Pointer asks; the camera arrives on its own time. The backdrop follows the pointer
+  // because the page keeps it: the scene there is behind the reading column and takes
+  // no drag. A figure keeps the drag it draws on the canvas instead.
   if (backdrop) {
     window.addEventListener('pointermove', followPointer);
     window.addEventListener('pointerleave', () => {
