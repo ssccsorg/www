@@ -14,12 +14,12 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^7.3.2",
+    "astro": "^7.4.13",
     "plotly.js": "^3.4.0"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.10",
-    "@astrojs/sitemap": "^3.7.4",
+    "@astrojs/check": "^0.9.12",
+    "@astrojs/sitemap": "^3.7.6",
     "typescript": "^6.0.3"
   },
   "allowScripts": {
