@@ -15,7 +15,7 @@ export const site = {
   philosophy: 'https://docs.ssccs.org/philosophy/',
   direction: 'https://docs.ssccs.org/direction',
   github: 'https://github.com/ssccsorg',
-  poc: 'https://github.com/ssccsorg/ssccs/tree/main/poc',
+  poc: 'https://docs.ssccs.org/poc/',
   sponsors: 'https://github.com/sponsors/ssccsorg',
   contact: 'contact@ssccs.org',
   // The key published on the organisation's navigation line.
@@ -37,7 +37,7 @@ export const elsewhere = [
   { label: 'Documentation', href: site.docs },
   { label: 'Whitepaper', href: site.whitepaper },
   { label: 'Projects', href: site.projects },
-  { label: 'Works', href: site.works },
+  { label: 'PoC', href: site.poc },
   { label: 'Code', href: site.github },
 ] as const;
 
